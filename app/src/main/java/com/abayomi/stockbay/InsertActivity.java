@@ -35,6 +35,7 @@ public class InsertActivity extends AppCompatActivity {
         setContentView(R.layout.activity_insert);
 
         fstore        = FirebaseFirestore.getInstance();
+        mAuth         = FirebaseAuth.getInstance();
         editNmProduto = findViewById(R.id.editNmProduto);
         editQtd       = findViewById(R.id.editQtd);
         editdtCompra  = findViewById(R.id.editdtCompra);
@@ -50,13 +51,14 @@ public class InsertActivity extends AppCompatActivity {
 
         userID = mAuth.getCurrentUser().getUid();
             DocumentReference documentReference = fstore.collection("Estoque").document(userID);
+
             Map<String, Object> Est = new HashMap<>();
-            Est.put("Nome"       , editNmProduto);
-            Est.put("Quantida"   , editQtd);
-            Est.put("DataCompra" , editdtCompra);
-            Est.put("ValoreVenda", editVlVenda);
-            Est.put("ValorCusto" , editVlCusto);
-            Est.put("Descricao"  , editDesc);
+            Est.put("Nome"       , editNmProduto.getText().toString());
+            Est.put("Quantida"   , editQtd.getText().toString());
+            Est.put("DataCompra" , editdtCompra.getText().toString());
+            Est.put("ValoreVenda", editVlVenda.getText().toString());
+            Est.put("ValorCusto" , editVlCusto.getText().toString());
+            Est.put("Descricao"  , editDesc.getText().toString());
         documentReference.set(Est).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
@@ -66,13 +68,21 @@ public class InsertActivity extends AppCompatActivity {
         .addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Error adding document", e);
+                Log.w(TAG, "Não possível registrar o Produto!", e);
             }
         });
     }
 
-    public void onClick (View v){
-        RegisterProdutos();
+    public void onClick (View v) {
+        switch (v.getId()) {
+            case R.id.btnProd:
+                RegisterProdutos();
+            break;
+            case R.id.txtCancelar:
+                Intent Voltar = new Intent(getApplicationContext() , PrincipalActivity.class);
+                startActivity(Voltar);
+                break;
         }
     }
+}
 

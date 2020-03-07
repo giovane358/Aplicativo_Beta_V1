@@ -42,43 +42,6 @@
           ]
         }
       }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:190539920482:android:c751bcaa7d417b40838d3b",
-        "android_client_info": {
-          "package_name": "com.br.stockbay"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "190539920482-3nkbpfe3vsmeigcn362l05r44tfk14s5.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.br.stockbay",
-            "certificate_hash": "6c27e96497b2c62e1911f45f543cdb1b6875accc"
-          }
-        },
-        {
-          "client_id": "190539920482-6tsao6iqnenn9idg2p2itihjjqm9noor.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyBjz1oMtXKI73V6LeggqUkODotPH2-LPjQ"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "190539920482-6tsao6iqnenn9idg2p2itihjjqm9noor.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
     }
   ],
   "configuration_version": "1"
