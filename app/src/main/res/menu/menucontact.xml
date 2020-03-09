@@ -5,9 +5,4 @@
     <item
         android:id="@+id/nav_settings"
         android:title="@string/action_settings" />
-    <item
-        android:id="@+id/nav_insert"
-        android:icon="@drawable/ic_add_black_24dp"
-        android:title="Adicionar"
-        app:showAsAction="always" />
 </menu>

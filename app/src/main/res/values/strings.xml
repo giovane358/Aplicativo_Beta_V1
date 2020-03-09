@@ -58,4 +58,9 @@
     <string name="nav_Conta">Conta</string>
     <string name="nav_LogOut">Sair</string>
     <string name="nav_agenda">Contatos</string>
+    <string name="nav_AdicionarNovoContanct">Adicionar novo Contato</string>
+    <string name="NovoContato">Novo Contato</string>
+    <string name="nome">Nome</string>
+    <string name="Telefone">(11) 0000-0000</string>
+    <string name="Novo">Adicionar</string>
 </resources>

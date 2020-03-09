@@ -5,7 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/cor_de_fundo"
     tools:context=".ListContactActivity">
+
+    <TextView
+        android:id="@+id/nav_novo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableLeft="@drawable/ic_add_black_24dp"
+        android:text="@string/nav_AdicionarNovoContanct"
+        android:textSize="18sp"
+        android:onClick="onClick"/>
 
     <ListView
         android:id="@+id/LIstContact"
