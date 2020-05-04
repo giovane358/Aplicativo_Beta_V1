@@ -90,7 +90,7 @@ public class PrincipalActivity extends AppCompatActivity {
                         modelList.add(model);
                     }
                     //adapter
-                    adapter = new CustomAdapter(this, modelList,getApplicationContext());
+                    adapter = new CustomAdapter(this, modelList);
                     //set adapterto recyclerview
                     mRecycleView.setAdapter(adapter);
                 }
