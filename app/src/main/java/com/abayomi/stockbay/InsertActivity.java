@@ -54,7 +54,7 @@ public class InsertActivity extends AppCompatActivity {
                                                         .collection("Estoque").document();
             Map<String, Object> Est = new HashMap<>();
             Est.put("Nome"       , editNmProduto.getText().toString());
-            Est.put("Quantida"   , editQtd      .getText().toString());
+            Est.put("Quantidade"   , editQtd      .getText().toString());
             Est.put("DataCompra" , editdtCompra .getText().toString());
             Est.put("ValoreVenda", editVlVenda  .getText().toString());
             Est.put("ValorCusto" , editVlCusto  .getText().toString());

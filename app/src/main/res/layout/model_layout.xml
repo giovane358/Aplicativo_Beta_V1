@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="#fff"
+    app:contentPadding="5dp"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <!--Nome-->
+        <TextView
+            android:id="@+id/rTitle"
+            android:text="Nome"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <!--Quantidade-->
+        <TextView
+            android:id="@+id/rQtd"
+            android:text="Quantidade"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <!--DataCompra-->
+        <TextView
+            android:id="@+id/rDataCompra"
+            android:text="DataCompra"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <!--ValoreVenda-->
+        <TextView
+            android:id="@+id/rValoreVenda"
+            android:text="ValoreVenda"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <!--ValorCusto-->
+        <TextView
+            android:id="@+id/rValorCusto"
+            android:text="ValorCusto"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <!--Descricao-->
+        <TextView
+            android:id="@+id/rDescricao"
+            android:text="Descricao"
+            android:textSize="22sp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
