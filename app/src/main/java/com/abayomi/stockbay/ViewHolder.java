@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
 
-    TextView rTitle, rQtd, rDataCompra, rValoreVenda, rValorCusto, rDescricao;
+    TextView rTitle, rQtd, rDataCompra, rValoreVenda, rValorCusto, rDescricao,editNome,editFone;
     View mView;
 
     public ViewHolder(@NonNull View itemView) {
@@ -37,6 +37,10 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         rValoreVenda = itemView.findViewById(R.id.rValoreVenda);
         rValorCusto = itemView.findViewById(R.id.rValorCusto);
         rDescricao = itemView.findViewById(R.id.rDescricao);
+
+
+        editNome = itemView.findViewById(R.id.editNome);
+        editFone = itemView.findViewById(R.id.editFone);
     }
     private ViewHolder.ClickListener mClickListener;
     //interface for click listener

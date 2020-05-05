@@ -11,14 +11,11 @@ import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-    PrincipalActivity principalActivity;
+
     List<Model> modelList;
-    Context context;
 
-    public CustomAdapter(PrincipalActivity principalActivity, List<Model> modelList) {
-        this.principalActivity = principalActivity;
+    public CustomAdapter(List<Model> modelList) {
         this.modelList = modelList;
-
     }
 
     @NonNull
@@ -41,7 +38,8 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
                String Vlcusto = modelList.get(position).getValorCusto();
                String Vlvenda = modelList.get(position).getValoreVenda();
                String descr = modelList.get(position).getDescricao();
-               Toast.makeText(principalActivity, nome+"\n"+qtd, Toast.LENGTH_SHORT).show();
+
+
            }
 
            @Override

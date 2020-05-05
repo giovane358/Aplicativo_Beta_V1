@@ -49,14 +49,14 @@ public class ContactInsert extends AppCompatActivity {
         DocumentReference documentReference = fstore.collection("User").document(userID)
                 .collection("Contato").document();
         Map<String, Object> Contact = new HashMap<>();
-        Contact.put("Nome"       , editNm     .getText().toString());
-        Contact.put("Email"      , editEmail  .getText().toString());
-        Contact.put("Telefone"   , editFone   .getText().toString());
+        Contact.put("NomeFornc"       , editNm     .getText().toString());
+        Contact.put("EmailFornc"      , editEmail  .getText().toString());
+        Contact.put("TelefoneFornec"   , editFone   .getText().toString());
 
         documentReference.set(Contact).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(ContactInsert.this, "Ok", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ContactInsert.this, "Contato adicionado com sucesso!", Toast.LENGTH_SHORT).show();
             }
         })
                 .addOnFailureListener(new OnFailureListener() {

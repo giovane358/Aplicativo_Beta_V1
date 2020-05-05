@@ -2,7 +2,7 @@ package com.abayomi.stockbay;
 
 public class Model {
 
-    String id, Nome, Quantidade, DataCompra, ValoreVenda, ValorCusto, Descricao;
+    String id, Nome, Quantidade, DataCompra, ValoreVenda, ValorCusto, Descricao,editNome,editFone;
 
 
     public Model() {
@@ -16,6 +16,10 @@ public class Model {
         ValoreVenda = valoreVenda;
         ValorCusto = valorCusto;
         Descricao = descricao;
+        editNome = editNome;
+        editFone = editFone;
+
+
     }
 
     public String getId() {
@@ -72,5 +76,21 @@ public class Model {
 
     public void setDescricao(String descricao) {
         Descricao = descricao;
+    }
+
+    public String getEditNome() {
+        return editNome;
+    }
+
+    public void setEditNome(String editNome) {
+        this.editNome = editNome;
+    }
+
+    public String getEditFone() {
+        return editFone;
+    }
+
+    public void setEditFone(String editFone) {
+        this.editFone = editFone;
     }
 }

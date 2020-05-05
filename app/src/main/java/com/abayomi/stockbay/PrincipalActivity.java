@@ -33,7 +33,6 @@ public class PrincipalActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     String userID;
     RecyclerView mRecycleView;
-    private ListView ListEstoque;
     private FirebaseFirestore db;
     private static final String TAG = "DocSnippets";
 
@@ -55,29 +54,26 @@ public class PrincipalActivity extends AppCompatActivity {
         mRecycleView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(layoutManager);
+
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
+
         //show data in recyclerview
         showData();
 
 
-        ProgressDialog pb = new  ProgressDialog;
     }
 
     private void showData() {
         //set title of progress dialog
-    pd.setTitle("Loading Data...");
-    //show progress dialog
-    pd.show();
     userID = mAuth.getCurrentUser().getUid();
     db.collection("User").document(userID)
-            .collection("Estoque").document()
+            .collection("Estoque")
             .get()
             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
                     //called when data is retrieved
-                    pd.dismiss();
                     //show data
                     for(DocumentSnapshot doc: task.getResult()){
                         Model model = new Model(doc.getString("id"),
@@ -90,18 +86,9 @@ public class PrincipalActivity extends AppCompatActivity {
                         modelList.add(model);
                     }
                     //adapter
-                    adapter = new CustomAdapter(this, modelList);
+                    adapter = new CustomAdapter(modelList);
                     //set adapterto recyclerview
                     mRecycleView.setAdapter(adapter);
-                }
-            })
-            .addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    //called when data is any error while retrieving
-                    pd.dismiss();
-
-                    Toast.makeText(PrincipalActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
     }

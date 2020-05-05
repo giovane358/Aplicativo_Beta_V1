@@ -36,6 +36,7 @@ public class InsertActivity extends AppCompatActivity {
 
         fstore        = FirebaseFirestore.getInstance();
         mAuth         = FirebaseAuth.getInstance();
+
         editNmProduto = findViewById(R.id.editNmProduto);
         editQtd       = findViewById(R.id.editQtd);
         editdtCompra  = findViewById(R.id.editdtCompra);
@@ -54,15 +55,15 @@ public class InsertActivity extends AppCompatActivity {
                                                         .collection("Estoque").document();
             Map<String, Object> Est = new HashMap<>();
             Est.put("Nome"       , editNmProduto.getText().toString());
-            Est.put("Quantidade"   , editQtd      .getText().toString());
+            Est.put("Quantidade" , editQtd      .getText().toString());
             Est.put("DataCompra" , editdtCompra .getText().toString());
             Est.put("ValoreVenda", editVlVenda  .getText().toString());
             Est.put("ValorCusto" , editVlCusto  .getText().toString());
             Est.put("Descricao"  , editDesc     .getText().toString());
         documentReference.set(Est).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(InsertActivity.this, "Ok", Toast.LENGTH_SHORT).show();
+            public void onSuccess(Void Void) {
+                Toast.makeText(InsertActivity.this, "Produto Registrado com sucesso!", Toast.LENGTH_SHORT).show();
             }
         })
         .addOnFailureListener(new OnFailureListener() {

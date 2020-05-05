@@ -17,8 +17,10 @@
         android:textSize="18sp"
         android:onClick="onClick"/>
 
-    <ListView
-        android:id="@+id/LIstContact"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+
 </LinearLayout>
