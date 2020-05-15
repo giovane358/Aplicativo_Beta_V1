@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ContactInsert"></activity>
+        <activity android:name=".ResetActivity"></activity>
+        <activity android:name=".ContactInsert" />
         <activity android:name=".ListContactActivity" />
         <activity android:name=".PrincipalActivity" />
         <activity android:name=".HeaderActivity" />
@@ -25,6 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

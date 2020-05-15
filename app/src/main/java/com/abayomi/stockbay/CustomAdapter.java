@@ -13,6 +13,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 
     List<Model> modelList;
+    List<ModelContact> modelContactList;
 
     public CustomAdapter(List<Model> modelList) {
         this.modelList = modelList;
@@ -34,10 +35,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
                String nome = modelList.get(position).getNome();
                String qtd = modelList.get(position).getQuantidade();
-               String Dtcompra = modelList.get(position).getDataCompra();
-               String Vlcusto = modelList.get(position).getValorCusto();
                String Vlvenda = modelList.get(position).getValoreVenda();
-               String descr = modelList.get(position).getDescricao();
 
 
            }
@@ -54,10 +52,7 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder viewholder, int i) {
         viewholder.rTitle.setText(modelList.get(i).getNome());
         viewholder.rQtd.setText(modelList.get(i).getQuantidade());
-        viewholder.rDataCompra.setText(modelList.get(i).getDataCompra());
-        viewholder.rValorCusto.setText(modelList.get(i).getValorCusto());
         viewholder.rValoreVenda.setText(modelList.get(i).getValoreVenda());
-        viewholder.rDescricao.setText(modelList.get(i).getDescricao());
     }
 
     @Override

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.protobuf.Empty;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,10 +46,61 @@ public class InsertActivity extends AppCompatActivity {
         editDesc      = findViewById(R.id.editDesc);
         btnProd       = findViewById(R.id.btnProd);
 
-
     }
 
-    private void RegisterProdutos(){
+    private void Verif(){
+        if (editNmProduto == null){
+            Toast.makeText(InsertActivity.this, "Colocar um nome!", Toast.LENGTH_SHORT).show();
+        }else{
+            RegisterProdutos();
+        }
+    }
+
+
+
+    private void RegisterProdutos() {
+
+        String Nome = editNmProduto.getText().toString();
+        String Qtde = editQtd.getText().toString();
+        String Compra = editdtCompra.getText().toString();
+        String Custo = editVlCusto.getText().toString();
+        String venda = editVlVenda.getText().toString();
+        String desc = editDesc.getText().toString();
+
+        if (Nome.isEmpty()) {
+            editNmProduto.setError("Nome inválido");
+            editNmProduto.requestFocus();
+            return;
+        }
+        if (Qtde.isEmpty()) {
+            editQtd.setError("Quantidade Inválido");
+            editQtd.requestFocus();
+            return;
+        }
+        if (Compra.isEmpty()) {
+            editdtCompra.setError("Data inválida");
+            editdtCompra.requestFocus();
+            return;
+        }
+        if (Custo.isEmpty()){
+            editVlCusto.setError("Valor de compra inválido");
+            editVlCusto.requestFocus();
+            return;
+
+        }if (venda.isEmpty()){
+               editVlVenda.setError("Valor de venda inválido");
+               editVlVenda.requestFocus();
+               return;
+        }if (desc.isEmpty()){
+               editDesc.setError("Descrição inválida");
+               editDesc.requestFocus();
+               return;
+        }if (Compra.length() <= 8) {
+            editdtCompra.setError("Data deve conter no minímo 8 digitos!");
+            editdtCompra.requestFocus();
+            return;
+        }
+
 
         userID = mAuth.getCurrentUser().getUid();
             DocumentReference documentReference = fstore.collection("User").document(userID)
@@ -64,6 +116,8 @@ public class InsertActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Void Void) {
                 Toast.makeText(InsertActivity.this, "Produto Registrado com sucesso!", Toast.LENGTH_SHORT).show();
+                Intent Sucesso = new Intent(getApplicationContext(),PrincipalActivity.class);
+                startActivity(Sucesso);
             }
         })
         .addOnFailureListener(new OnFailureListener() {
@@ -77,7 +131,7 @@ public class InsertActivity extends AppCompatActivity {
     public void onClick (View v) {
         switch (v.getId()) {
             case R.id.btnProd:
-                RegisterProdutos();
+             Verif();
             break;
             case R.id.txtCancelar:
                 Intent Voltar = new Intent(getApplicationContext() , PrincipalActivity.class);

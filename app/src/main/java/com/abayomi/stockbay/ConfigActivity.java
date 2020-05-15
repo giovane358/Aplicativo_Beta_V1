@@ -1,9 +1,13 @@
 package com.abayomi.stockbay;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,6 +19,7 @@ public class ConfigActivity extends AppCompatActivity {
     private TextView txtExit;
     private TextView txtID;
     private TextView txtEmail;
+    private ImageButton action_pick;
 
     //Firebase//
     private FirebaseAuth mAuth;
@@ -24,15 +29,19 @@ public class ConfigActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
-        
-        //Inicialização do firebase//
-        mAuth       = FirebaseAuth.getInstance();
 
-        txtExit     = findViewById(R.id.txtExit);
-        txtEmail    = findViewById(R.id.txtEmail);
-        txtID       = findViewById(R.id.txtID);
+        //Inicialização do firebase//
+        mAuth = FirebaseAuth.getInstance();
+
+        txtExit = findViewById(R.id.txtExit);
+        txtEmail = findViewById(R.id.txtEmail);
+        txtID = findViewById(R.id.txtID);
+        action_pick = findViewById(R.id.action_pick);
 
     }
+
+
+
 
     @Override
     protected void onStart() {

@@ -11,16 +11,23 @@
         android:orderInCategory="100"
         android:title="@string/action_settings"
         app:showAsAction="never" />
-    <item android:title="Compra" />
+
     <item
         android:id="@+id/nav_contact"
         android:title="@string/nav_agenda"
         app:showAsAction="never" />
     <item
+        android:id="@+id/search"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="always"
+        android:title="@string/TXTNOME" />
+    <item
         android:id="@+id/nav_insert"
         android:icon="@drawable/ic_add_black_24dp"
         android:title="Inserir"
         app:showAsAction="always" />
+
+
 
 
 </menu>

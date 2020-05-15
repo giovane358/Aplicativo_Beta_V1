@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/colorAccent"
+    app:cardBackgroundColor="@color/cor_de_fundo"
     app:contentPadding="5dp"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
@@ -13,61 +14,80 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
+        <!--NOME Nome-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="264dp"
+            android:text="@string/TXTNOME"
+            android:textColor="#000"
+            android:textSize="8pt" />
         <!--Nome-->
         <TextView
             android:id="@+id/rTitle"
-            android:text="Nome"
-            android:textSize="22sp"
-            android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="-23dp"
+            android:text="Nome"
+            android:textColor="#000"
+            android:textSize="8pt" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="264dp"
+            android:text="@string/TXTQTDE"
+            android:textColor="#000"
+            android:textSize="8pt" />
         <!--Quantidade-->
         <TextView
             android:id="@+id/rQtd"
             android:text="Quantidade"
-            android:textSize="22sp"
+            android:textSize="8pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="290dp"
+            android:text="@string/TXTVALUE"
+            android:textColor="#000"
+            android:textSize="8pt" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="240dp"
+            android:text="R$"
+            android:textColor="#000"
+            android:textSize="8pt" />
+
         <!--DataCompra-->
         <TextView
-            android:id="@+id/rDataCompra"
-            android:text="DataCompra"
-            android:textSize="22sp"
-            android:textColor="#000"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <!--ValoreVenda-->
-        <TextView
             android:id="@+id/rValoreVenda"
-            android:text="ValoreVenda"
-            android:textSize="22sp"
+            android:text="DataCompra"
+            android:textSize="8pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
             android:textColor="#000"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
-        <!--ValorCusto-->
-        <TextView
-            android:id="@+id/rValorCusto"
-            android:text="ValorCusto"
-            android:textSize="22sp"
-            android:textColor="#000"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
-        <!--Descricao-->
-        <TextView
-            android:id="@+id/rDescricao"
-            android:text="Descricao"
-            android:textSize="22sp"
-            android:textColor="#000"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            />
+
+
+        <!--ValoreVenda-->
+
+
+
 
     </LinearLayout>
 

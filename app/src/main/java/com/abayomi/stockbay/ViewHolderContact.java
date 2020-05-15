@@ -6,43 +6,41 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ViewHolder extends RecyclerView.ViewHolder {
+public class ViewHolderContact extends RecyclerView.ViewHolder {
 
-    TextView rTitle, rQtd, rDataCompra, rValoreVenda, rValorCusto, rDescricao;
-    View mView;
+    TextView editNome, editFone;
+    View mViewContact;
 
-    public ViewHolder(@NonNull View itemView) {
+    public ViewHolderContact(@NonNull View itemView) {
         super(itemView);
-            mView = itemView;
+        mViewContact = itemView;
 
-            //Item click
+        //Item Click
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                mClickListener.onItemClick(v, getAdapterPosition());
+            public void onClick(View view) {
+                mClickListener.onItemClick(view, getAdapterPosition());
             }
         });
         //item long click listener
         itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
-            public boolean onLongClick(View v) {
-                mClickListener.onLongClick(v, getAdapterPosition());
+            public boolean onLongClick(View view) {
+                mClickListener.onLongClick(view, getAdapterPosition());
                 return false;
             }
         });
         //initialize views with model_layout.xml
-        rTitle = itemView.findViewById(R.id.rTitle);
-        rQtd = itemView.findViewById(R.id.rQtd);
-        rValoreVenda = itemView.findViewById(R.id.rValoreVenda);
-
+        editNome = itemView.findViewById(R.id.editNome);
+        editFone = itemView.findViewById(R.id.editFone);
     }
-    private ViewHolder.ClickListener mClickListener;
+    private ViewHolderContact.ClickListener mClickListener;
     //interface for click listener
     public interface ClickListener{
         void onItemClick(View view, int position);
         void onLongClick(View view, int position);
     }
-    public void setOnClickListener(ViewHolder.ClickListener clickListener){
+    public void setOnClickListener(ViewHolderContact.ClickListener clickListener){
         mClickListener = clickListener;
     }
 

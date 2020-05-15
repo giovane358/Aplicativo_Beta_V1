@@ -37,20 +37,15 @@ public class MainActivity extends AppCompatActivity {
         // Initialize Firebase Auth
             mAuth = FirebaseAuth.getInstance();
 
-
         btnLogin = (Button)   findViewById(R.id.btnLogin);
         txLogin = (EditText) findViewById(R.id.txLogin);
         txtSenha = (EditText) findViewById(R.id.txtSenha);
         Register = findViewById(R.id.Register);
 
-
-
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 loginUser(txLogin.getText().toString(), txtSenha.getText().toString());
-
             }
 
         });
@@ -66,16 +61,15 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            Toast.makeText(getApplicationContext(), "Login ok", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), "Bem-Vindo de Volta!" + " " + user.getEmail(), Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
                             startActivity(intent);
 
                             openPrincipalActivity();
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(getApplicationContext(), "Verifique os campos.",
+                            Toast.makeText(getApplicationContext(), "E-mail ou senha invalido!",
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -111,8 +105,12 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CadastroActivity.class);
                 startActivity(intent);
                 break;
-
         }
+    }
+
+    public void callReset(View view){
+        Intent intent = new Intent( this, ResetActivity.class );
+        startActivity(intent);
     }
 }
 

@@ -19,12 +19,12 @@
             android:id="@+id/TitleCadastro"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="150dp"
             android:fontFamily="sans-serif-condensed-medium"
             android:gravity="center"
             android:text="@string/Title_Cadastro"
-            android:textSize="24sp"
-            android:layout_marginTop="150dp"
             android:textColor="#fff"
+            android:textSize="24sp"
             tools:text="@string/Title_Cadastro" />
 
         <EditText
@@ -36,9 +36,9 @@
             android:ems="10"
             android:hint="@string/CampoProduto"
             android:inputType="textPersonName"
+            android:maxLength="40"
             android:text=""
             android:textColor="#fff"
-            android:maxLength="40"
             android:textColorHint="@color/fundo_menu" />
 
         <EditText
@@ -63,9 +63,10 @@
             android:ems="10"
             android:hint="@string/EditdtCompra"
             android:inputType="date"
-            android:textColor="#fff"
             android:maxLength="8"
-            android:textColorHint="@color/fundo_menu"/>
+            android:textColor="#fff"
+            android:textColorHint="@color/fundo_menu"
+           />
 
         <EditText
             android:id="@+id/editVlCusto"
@@ -89,8 +90,8 @@
             android:ems="10"
             android:hint="@string/EditVLVenda"
             android:inputType="number"
-            android:textColor="#fff"
             android:maxLength="10"
+            android:textColor="#fff"
             android:textColorHint="@color/fundo_menu" />
 
         <EditText
@@ -100,9 +101,9 @@
             android:layout_marginTop="15dp"
             android:background="@color/fundo_edt"
             android:ems="10"
-            android:maxLength="50"
             android:hint="@string/EditDescricao"
             android:inputType="textPersonName"
+            android:maxLength="50"
             android:text=""
             android:textColor="#fff"
             android:textColorHint="@color/fundo_menu" />
@@ -125,11 +126,11 @@
             android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:gravity="right"
-
             android:onClick="onClick"
             android:text="@string/nav_Voltar"
             android:textColor="#fff"
             android:textSize="18dp" />
+
 
 
     </LinearLayout>

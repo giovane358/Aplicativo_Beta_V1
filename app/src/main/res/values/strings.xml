@@ -63,4 +63,10 @@
     <string name="nome">Nome</string>
     <string name="Telefone">(11) 0000-0000</string>
     <string name="Novo">Adicionar</string>
+    <string name="btnEnviar">Enviar E-mail</string>
+    <string name="lblReset">Redefinição de senha</string>
+    <string name="TXTDTCompra">Data de compra:</string>
+    <string name="TXTQTDE">Quantidade:</string>
+    <string name="TXTNOME">Produto:</string>
+    <string name="TXTVALUE">Valor:</string>
 </resources>

@@ -7,7 +7,10 @@ import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -60,8 +63,6 @@ public class PrincipalActivity extends AppCompatActivity {
 
         //show data in recyclerview
         showData();
-
-
     }
 
     private void showData() {
@@ -77,12 +78,9 @@ public class PrincipalActivity extends AppCompatActivity {
                     //show data
                     for(DocumentSnapshot doc: task.getResult()){
                         Model model = new Model(doc.getString("id"),
-                        doc.getString("nome"),
-                        doc.getString("Quatidade"),
-                        doc.getString("DataCompra"),
-                        doc.getString("ValorCusto"),
-                        doc.getString("ValorCusto"),
-                        doc.getString("Descricao"));
+                        doc.getString("Nome"),
+                        doc.getString("Quantidade"),
+                        doc.getString("ValoreVenda"));
                         modelList.add(model);
                     }
                     //adapter
@@ -93,11 +91,11 @@ public class PrincipalActivity extends AppCompatActivity {
             });
     }
 
-
     //create menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+
         return true;
     }
 
