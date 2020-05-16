@@ -69,4 +69,7 @@
     <string name="TXTQTDE">Quantidade:</string>
     <string name="TXTNOME">Produto:</string>
     <string name="TXTVALUE">Valor:</string>
+    <string name="TextSobre">Sobre</string>
+    <string name="TEXTVersão">Pré Alva V:1,0,1</string>
+    <string name="Temo">Temos do aplicativo</string>
 </resources>

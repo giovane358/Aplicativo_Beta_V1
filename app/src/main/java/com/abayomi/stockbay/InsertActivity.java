@@ -95,10 +95,6 @@ public class InsertActivity extends AppCompatActivity {
                editDesc.setError("Descrição inválida");
                editDesc.requestFocus();
                return;
-        }if (Compra.length() <= 8) {
-            editdtCompra.setError("Data deve conter no minímo 8 digitos!");
-            editdtCompra.requestFocus();
-            return;
         }
 
 

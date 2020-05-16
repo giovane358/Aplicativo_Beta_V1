@@ -57,6 +57,9 @@ public class ContactInsert extends AppCompatActivity {
             @Override
             public void onSuccess(Void aVoid) {
                 Toast.makeText(ContactInsert.this, "Contato adicionado com sucesso!", Toast.LENGTH_SHORT).show();
+                Intent contact = new Intent(getApplicationContext(), ListContactActivity.class);
+                startActivity(contact);
+
             }
         })
                 .addOnFailureListener(new OnFailureListener() {

@@ -36,15 +36,12 @@ public class ListContactActivity extends AppCompatActivity {
 
     CustomAdapterContact adapter;
 
-    ProgressDialog pd;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_contact);
 
-        mRecycleView = findViewById(R.id.recycler_view);
+        mRecycleView = findViewById(R.id.recycler_view_contact);
         //set recycler view properties
         mRecycleView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
