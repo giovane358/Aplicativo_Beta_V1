@@ -15,15 +15,20 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.view.menu.MenuItemWrapperICS;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -31,21 +36,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PrincipalActivity extends AppCompatActivity {
+public class PrincipalActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener, PopupMenu.OnMenuItemClickListener {
 
+    // Firebase
     private FirebaseAuth mAuth;
-    String userID;
-    RecyclerView mRecycleView;
+    private RecyclerView mRecycleView;
     private FirebaseFirestore db;
+
+    private CardView cardView;
+
     private static final String TAG = "DocSnippets";
+    private int selectedItem;
+    String userID;
+    CustomAdapter adapter;
+    ProgressDialog pd;
 
     List<Model> modelList = new ArrayList<>();
     // layout kmanger for recycleview
     RecyclerView.LayoutManager layoutManager;
-
-    CustomAdapter adapter;
-
-    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,7 @@ public class PrincipalActivity extends AppCompatActivity {
         setContentView(R.layout.activity_principal);
 
         mRecycleView = findViewById(R.id.recycler_view);
+
         //set recycler view properties
         mRecycleView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
@@ -61,6 +70,7 @@ public class PrincipalActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
+
         //show data in recyclerview
         showData();
     }
@@ -68,21 +78,23 @@ public class PrincipalActivity extends AppCompatActivity {
     private void showData() {
         //set title of progress dialog
     userID = mAuth.getCurrentUser().getUid();
-    db.collection("User").document(userID)
-            .collection("Estoque")
-            .get()
-            .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    //called when data is retrieved
-                    //show data
-                    for(DocumentSnapshot doc: task.getResult()){
-                        Model model = new Model(doc.getString("id"),
-                        doc.getString("Nome"),
-                        doc.getString("Quantidade"),
-                        doc.getString("ValoreVenda"));
-                        modelList.add(model);
-                    }
+         db.collection("User").document(userID)
+             .collection("Estoque")
+                .get()
+                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                      @Override
+                       public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        //called when data is retrieved
+                        //show data
+                        for(DocumentSnapshot doc: task.getResult())
+                         {
+                             Model model = new Model(doc.getString("id"),
+                                 doc.getString("Nome"),
+                                 doc.getString("Quantidade"),
+                                 doc.getString("ValoreVenda"));
+                                    modelList.add(model);
+                         }
                     //adapter
                     adapter = new CustomAdapter(modelList);
                     //set adapterto recyclerview
@@ -95,12 +107,12 @@ public class PrincipalActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
         switch (item.getItemId()){
             case R.id.nav_settings:
                 Intent config = new Intent(getApplicationContext(), ConfigActivity.class);
@@ -118,6 +130,55 @@ public class PrincipalActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+        return false;
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem menuItem) {
+        return false;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        switch (item.getItemId())
+        {
+            case 121:
+                Intent edit = new Intent(getApplicationContext(), EditActivity.class);
+                startActivity(edit);
+                break;
+            case 122:
+                deleteItem();
+        }
+
+        return super.onContextItemSelected(item);
+    }
+
+    private void deleteItem()
+    {
+
+        userID = mAuth.getCurrentUser().getUid();
+        db.collection("User").document(userID)
+                .collection("Estoque").document("t9NyO37FtPtlqSpsB0Ky")
+                    .delete()
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "Produto deletado com sucesso!");
+                            }
+                        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error ao deletar produto")
+;                    }
+                });
+    }
+
 
 }
 

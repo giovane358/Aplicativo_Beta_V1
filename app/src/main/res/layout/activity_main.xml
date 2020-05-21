@@ -85,12 +85,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtSenha">
 
-            <RadioButton
-                android:id="@+id/radioButton2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lembra-me Senha"
-                android:textColor="#fff" />
+        <RadioButton
+            android:id="@+id/LembraMe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="onClick"
+            android:text="Lembra-me Senha"
+            android:textColor="#fff" />
         </RadioGroup>
 
     <Button

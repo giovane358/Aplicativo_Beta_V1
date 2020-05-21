@@ -29,6 +29,7 @@ public class InsertActivity extends AppCompatActivity {
     FirebaseFirestore fstore;
     String userID;
     private static final String TAG = "DocSnippets";
+    private Object idProdut;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,9 +99,10 @@ public class InsertActivity extends AppCompatActivity {
         }
 
 
+
         userID = mAuth.getCurrentUser().getUid();
             DocumentReference documentReference = fstore.collection("User").document(userID)
-                                                        .collection("Estoque").document();
+                                                        .collection("Estoque").document(editNmProduto;);
             Map<String, Object> Est = new HashMap<>();
             Est.put("Nome"       , editNmProduto.getText().toString());
             Est.put("Quantidade" , editQtd      .getText().toString());

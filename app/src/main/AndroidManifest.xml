@@ -11,7 +11,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetActivity"></activity>
+        <activity android:name=".EditActivity"></activity>
+        <activity android:name=".NotificationActivity" />
+        <activity android:name=".TermActivity" />
+        <activity android:name=".ResetActivity" />
         <activity android:name=".ContactInsert" />
         <activity android:name=".ListContactActivity" />
         <activity android:name=".PrincipalActivity" />

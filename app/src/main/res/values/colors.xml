@@ -7,5 +7,7 @@
     <color name="colorpp">#000456</color>
     <color name="fundo_menu">#000000</color>
     <color name="cor_de_fundo">#696969</color>
+    <color name="cor_Select">#504f4f</color>
     <color name="fundo_edt">#708090</color>
+    <color name="setting">#F8F8FF</color>
 </resources>

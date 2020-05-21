@@ -72,4 +72,9 @@
     <string name="TextSobre">Sobre</string>
     <string name="TEXTVersão">Pré Alva V:1,0,1</string>
     <string name="Temo">Temos do aplicativo</string>
+    <string name="nav_password">Alterar senha</string>
+    <string name="nav_sair">Sair do App</string>
+    <string name="nav_versao">Verssão do App</string>
+    <string name="navTermos">Termo de uso do App</string>
+    <string name="avatar">Photo</string>
 </resources>

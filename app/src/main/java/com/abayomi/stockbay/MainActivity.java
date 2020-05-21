@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private EditText txtSenha;
     private Button btnLogin;
     private TextView Register;
+    private RadioButton LembrameMe;
 
     ///firebase
     private FirebaseAuth mAuth;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         txLogin = (EditText) findViewById(R.id.txLogin);
         txtSenha = (EditText) findViewById(R.id.txtSenha);
         Register = findViewById(R.id.Register);
+        LembrameMe = findViewById(R.id.LembraMe);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,9 +93,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         if (userConnected()){
-             openPrincipalActivity();
+            openPrincipalActivity();
         }
     }
+
     private void openPrincipalActivity(){
         Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
         startActivity(intent);
@@ -105,7 +109,20 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), CadastroActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.LembraMe:
+                lembraMe();
+                break;
         }
+    }
+
+    private void lembraMe() {
+        if (LembrameMe == null){
+            Intent Login = new Intent(getApplicationContext(), MainActivity.class);
+            startActivity(Login);
+        }else{
+            userConnected();
+        }
+
     }
 
     public void callReset(View view){
