@@ -1,137 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/cor_de_fundo"
     android:layout_height="match_parent"
+    android:background="@color/cor_de_fundo"
     tools:context=".InsertActivity">
 
 
-    <LinearLayout
+    <ImageButton
+        android:id="@+id/txtCancelar"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/cor_de_fundo"
+        android:onClick="onClick"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_chevron_left_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:text="@string/Title_Cadastro"
+        android:textColor="#E6DBDB"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/editNmProduto"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="67dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="@string/CampoProduto"
+        android:inputType="textEmailAddress"
+        android:textColor="#fff"
+        android:textColorHint="@color/fundo_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+    <EditText
+        android:id="@+id/editQtd"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="@string/EditQTD"
+        android:inputType="textEmailAddress"
+        android:textColor="#fff"
+        android:textColorHint="@color/fundo_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNmProduto" />
+
+    <EditText
+        android:id="@+id/editdtCompra"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="@string/EditdtCompra"
+        android:inputType="textEmailAddress"
+        android:textColor="#fff"
+        android:textColorHint="@color/fundo_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editQtd" />
+
+    <EditText
+        android:id="@+id/editVlCusto"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="Valor de custo"
+        android:inputType="textEmailAddress"
+        android:textColor="#fff"
+        android:textColorHint="@color/fundo_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editdtCompra" />
+
+    <EditText
+        android:id="@+id/editVlVenda"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="@string/EditVLVenda"
+        android:inputType="textEmailAddress"
+        android:textColor="#fff"
+        android:textColorHint="@color/fundo_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editVlCusto" />
+
+    <EditText
+        android:id="@+id/editDesc"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="32dp"
+        android:ems="10"
+        android:hint="@string/EditDescricao"
+        android:inputType="textEmailAddress"
+        android:textColor="#fff"
+        android:textColorHint="@color/fundo_menu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editVlVenda" />
+
+    <Button
+        android:id="@+id/btnProd"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
+        android:layout_marginLeft="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginRight="64dp"
+        android:background="@drawable/btn_cust"
+        android:onClick="onClick"
+        android:text="Registrar Produto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editDesc" />
 
-        <TextView
-            android:id="@+id/TitleCadastro"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="150dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:gravity="center"
-            android:text="@string/Title_Cadastro"
-            android:textColor="#fff"
-            android:textSize="24sp"
-            tools:text="@string/Title_Cadastro" />
-
-        <EditText
-            android:id="@+id/editNmProduto"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="25dp"
-            android:background="@color/fundo_edt"
-            android:ems="10"
-            android:hint="@string/CampoProduto"
-            android:inputType="textPersonName"
-            android:maxLength="40"
-            android:text=""
-            android:textColor="#fff"
-            android:textColorHint="@color/fundo_menu" />
-
-        <EditText
-            android:id="@+id/editQtd"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/fundo_edt"
-            android:ems="10"
-            android:hint="@string/EditQTD"
-            android:inputType="number"
-            android:maxLength="8"
-            android:textColor="#fff"
-            android:textColorHint="@color/fundo_menu" />
-
-        <EditText
-            android:id="@+id/editdtCompra"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/fundo_edt"
-            android:ems="10"
-            android:hint="@string/EditdtCompra"
-            android:inputType="date"
-            android:maxLength="8"
-            android:textColor="#fff"
-            android:textColorHint="@color/fundo_menu"
-           />
-
-        <EditText
-            android:id="@+id/editVlCusto"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/fundo_edt"
-            android:ems="10"
-            android:hint="@string/EditVlCusT"
-            android:inputType="number"
-            android:maxLength="10"
-            android:textColor="#fff"
-            android:textColorHint="@color/fundo_menu" />
-
-        <EditText
-            android:id="@+id/editVlVenda"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/fundo_edt"
-            android:ems="10"
-            android:hint="@string/EditVLVenda"
-            android:inputType="number"
-            android:maxLength="10"
-            android:textColor="#fff"
-            android:textColorHint="@color/fundo_menu" />
-
-        <EditText
-            android:id="@+id/editDesc"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:layout_marginTop="15dp"
-            android:background="@color/fundo_edt"
-            android:ems="10"
-            android:hint="@string/EditDescricao"
-            android:inputType="textPersonName"
-            android:maxLength="50"
-            android:text=""
-            android:textColor="#fff"
-            android:textColorHint="@color/fundo_menu" />
-
-        <Button
-            android:id="@+id/btnProd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/btn_cust"
-            android:onClick="onClick"
-            android:text="Registrar Produto" />
-
-        <TextView
-            android:id="@+id/txtCancelar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:gravity="right"
-            android:onClick="onClick"
-            android:text="@string/nav_Voltar"
-            android:textColor="#fff"
-            android:textSize="18dp" />
-
-
-
-    </LinearLayout>
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cor_de_fundo"
     android:orientation="vertical"
+    android:background="@color/cor_de_fundo"
     tools:context=".PrincipalActivity">
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view"

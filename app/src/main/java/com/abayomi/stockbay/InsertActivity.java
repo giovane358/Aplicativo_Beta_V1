@@ -30,6 +30,7 @@ public class InsertActivity extends AppCompatActivity {
     String userID;
     private static final String TAG = "DocSnippets";
     private Object idProdut;
+    private EditText id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,27 +90,26 @@ public class InsertActivity extends AppCompatActivity {
             return;
 
         }if (venda.isEmpty()){
-               editVlVenda.setError("Valor de venda inválido");
-               editVlVenda.requestFocus();
-               return;
+            editVlVenda.setError("Valor de venda inválido");
+            editVlVenda.requestFocus();
+            return;
         }if (desc.isEmpty()){
-               editDesc.setError("Descrição inválida");
-               editDesc.requestFocus();
-               return;
+            editDesc.setError("Descrição inválida");
+            editDesc.requestFocus();
+            return;
         }
 
-
-
         userID = mAuth.getCurrentUser().getUid();
-            DocumentReference documentReference = fstore.collection("User").document(userID)
-                                                        .collection("Estoque").document(editNmProduto;);
-            Map<String, Object> Est = new HashMap<>();
-            Est.put("Nome"       , editNmProduto.getText().toString());
-            Est.put("Quantidade" , editQtd      .getText().toString());
-            Est.put("DataCompra" , editdtCompra .getText().toString());
-            Est.put("ValoreVenda", editVlVenda  .getText().toString());
-            Est.put("ValorCusto" , editVlCusto  .getText().toString());
-            Est.put("Descricao"  , editDesc     .getText().toString());
+        DocumentReference documentReference = fstore.collection("User").document(userID)
+                .collection("Estoque").document();
+        Map<String, Object> Est = new HashMap<>();
+        Est.put("Id"         , editNmProduto.getText().toString());
+        Est.put("Nome"       , editNmProduto.getText().toString());
+        Est.put("Quantidade" , editQtd      .getText().toString());
+        Est.put("DataCompra" , editdtCompra .getText().toString());
+        Est.put("ValoreVenda", editVlVenda  .getText().toString());
+        Est.put("ValorCusto" , editVlCusto  .getText().toString());
+        Est.put("Descricao"  , editDesc     .getText().toString());
         documentReference.set(Est).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void Void) {
@@ -118,19 +118,19 @@ public class InsertActivity extends AppCompatActivity {
                 startActivity(Sucesso);
             }
         })
-        .addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.w(TAG, "Não possível registrar o Produto!", e);
-            }
-        });
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Não possível registrar o Produto!", e);
+                    }
+                });
     }
 
     public void onClick (View v) {
         switch (v.getId()) {
             case R.id.btnProd:
-             Verif();
-            break;
+                Verif();
+                break;
             case R.id.txtCancelar:
                 Intent Voltar = new Intent(getApplicationContext() , PrincipalActivity.class);
                 startActivity(Voltar);

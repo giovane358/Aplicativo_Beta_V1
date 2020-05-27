@@ -37,10 +37,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Initialize Firebase Auth
-            mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
         btnLogin = (Button)   findViewById(R.id.btnLogin);
-        txLogin = (EditText) findViewById(R.id.txLogin);
+        txLogin = (EditText) findViewById(R.id.editNmProduto);
         txtSenha = (EditText) findViewById(R.id.txtSenha);
         Register = findViewById(R.id.Register);
         LembrameMe = findViewById(R.id.LembraMe);

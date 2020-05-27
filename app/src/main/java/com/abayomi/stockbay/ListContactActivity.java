@@ -65,8 +65,8 @@ public class ListContactActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         for (DocumentSnapshot cont: task.getResult()){
                             ModelContact modelContact = new ModelContact(cont.getString("id"),
-                            cont.getString("NomeFornc"),
-                            cont.getString("TelefoneFornec"));
+                                    cont.getString("NomeFornc"),
+                                    cont.getString("TelefoneFornec"));
                             modelListContact.add(modelContact);
                         }
                     }

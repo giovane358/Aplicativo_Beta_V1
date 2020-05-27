@@ -27,16 +27,16 @@ public class CadastroActivity extends AppCompatActivity {
 
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
-                "(?=.*[0-9])"+      //at least 1 digit
-                "(?=.*[a-z])"+      //at least 1 lower case letter
-                "(?=.*[A-Z])"+      //at least 1 upper case letter
-              //  "(?=.*[a-zA-Z])"+
-                "(?=.*[@#$%^&+=])"+ //at least 1 special character
-                "(?=\\S+$)"+        //no white spaces
-                ".{6,}"+            //at least 6 character
-                "$");
+                    "(?=.*[0-9])"+      //at least 1 digit
+                    "(?=.*[a-z])"+      //at least 1 lower case letter
+                    "(?=.*[A-Z])"+      //at least 1 upper case letter
+                    //  "(?=.*[a-zA-Z])"+
+                    "(?=.*[@#$%^&+=])"+ //at least 1 special character
+                    "(?=\\S+$)"+        //no white spaces
+                    ".{6,}"+            //at least 6 character
+                    "$");
 
-   private EditText txtEmail, txtSenha;
+    private EditText txtEmail, txtSenha;
     Button btnRegister;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
@@ -59,7 +59,7 @@ public class CadastroActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-            if (mAuth.getCurrentUser() != null){
+        if (mAuth.getCurrentUser() != null){
 
         }
 
@@ -71,50 +71,50 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
-       final String email = txtEmail.getText().toString();
-       String senha = txtSenha.getText().toString();
-       if (email.isEmpty()){
-           txtEmail.setError("Por favor insere o email!");
-           txtEmail.requestFocus();
-             return;
+        final String email = txtEmail.getText().toString();
+        String senha = txtSenha.getText().toString();
+        if (email.isEmpty()){
+            txtEmail.setError("Por favor insere o email!");
+            txtEmail.requestFocus();
+            return;
 
-       }if (senha.isEmpty()){
-           txtSenha.setError("Senha Inválida!");
-           txtSenha.requestFocus();
-           return;
+        }if (senha.isEmpty()){
+            txtSenha.setError("Senha Inválida!");
+            txtSenha.requestFocus();
+            return;
         }
 
-       mAuth.createUserWithEmailAndPassword(email, senha)
-               .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                   @Override
-                   public void onComplete(@NonNull Task<AuthResult> task) {
-                       if (task.isSuccessful()){
-                           User user = new User(
-                               email
-                           );
-                           FirebaseDatabase.getInstance().getReference("Users")
-                                   .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                   .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                               @Override
-                               public void onComplete(@NonNull Task<Void> task) {
-                                   progressBar.setVisibility(View.GONE);
-                                 if (task.isSuccessful())
-                                 {
-                                     Toast.makeText(CadastroActivity.this, getString(R.string.btn_registrar), Toast.LENGTH_LONG).show();
-                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                     startActivity(intent);
+        mAuth.createUserWithEmailAndPassword(email, senha)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            User user = new User(
+                                    email
+                            );
+                            FirebaseDatabase.getInstance().getReference("Users")
+                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    progressBar.setVisibility(View.GONE);
+                                    if (task.isSuccessful())
+                                    {
+                                        Toast.makeText(CadastroActivity.this, getString(R.string.btn_registrar), Toast.LENGTH_LONG).show();
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        startActivity(intent);
 
-                                 }else {
-                                 }
-                               }
-                           });
-                       }else {
-                           Toast.makeText(CadastroActivity.this, "Não foi possível fazer fazer o Registro", Toast.LENGTH_SHORT).show();
-                       }
-                   }
+                                    }else {
+                                    }
+                                }
+                            });
+                        }else {
+                            Toast.makeText(CadastroActivity.this, "Não foi possível fazer fazer o Registro", Toast.LENGTH_SHORT).show();
+                        }
+                    }
 
 
-               });
+                });
     }
 
     public void onClick (View v){

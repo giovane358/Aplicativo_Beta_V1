@@ -26,25 +26,25 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.model_layout, viewGroup, false);
 
-       ViewHolder viewHolder = new ViewHolder(itemView);
-       viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
-           @Override
-           public void onItemClick(View view, int position) {
+        ViewHolder viewHolder = new ViewHolder(itemView);
+        viewHolder.setOnClickListener(new ViewHolder.ClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
 
 
 
-               String nome = modelList.get(position).getNome();
-               String qtd = modelList.get(position).getQuantidade();
-               String Vlvenda = modelList.get(position).getValoreVenda();
+                String nome = modelList.get(position).getNome();
+                String qtd = modelList.get(position).getQuantidade();
+                String Vlvenda = modelList.get(position).getValoreVenda();
 
 
-           }
+            }
 
-           @Override
-           public void onLongClick(View view, int position) {
+            @Override
+            public void onLongClick(View view, int position) {
 
-           }
-       });
+            }
+        });
         return viewHolder;
     }
 

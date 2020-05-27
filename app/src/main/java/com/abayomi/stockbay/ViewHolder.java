@@ -17,9 +17,9 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreate
 
     public ViewHolder(@NonNull View itemView) {
         super(itemView);
-            mView = itemView;
+        mView = itemView;
 
-            //Item click
+        //Item click
         itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -77,30 +77,30 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
 
     private void showData() {
         //set title of progress dialog
-    userID = mAuth.getCurrentUser().getUid();
-         db.collection("User").document(userID)
-             .collection("Estoque")
+        userID = mAuth.getCurrentUser().getUid();
+        db.collection("User").document(userID)
+                .collection("Estoque")
                 .get()
-                    .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                      @Override
-                       public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
                         //called when data is retrieved
                         //show data
                         for(DocumentSnapshot doc: task.getResult())
-                         {
-                             Model model = new Model(doc.getString("id"),
-                                 doc.getString("Nome"),
-                                 doc.getString("Quantidade"),
-                                 doc.getString("ValoreVenda"));
-                                    modelList.add(model);
-                         }
-                    //adapter
-                    adapter = new CustomAdapter(modelList);
-                    //set adapterto recyclerview
-                    mRecycleView.setAdapter(adapter);
-                }
-            });
+                        {
+                            Model model = new Model(doc.getString("id"),
+                                    doc.getString("Nome"),
+                                    doc.getString("Quantidade"),
+                                    doc.getString("ValoreVenda"));
+                            modelList.add(model);
+                        }
+                        //adapter
+                        adapter = new CustomAdapter(modelList);
+                        //set adapterto recyclerview
+                        mRecycleView.setAdapter(adapter);
+                    }
+                });
     }
 
     //create menu
@@ -164,18 +164,18 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
         userID = mAuth.getCurrentUser().getUid();
         db.collection("User").document(userID)
                 .collection("Estoque").document("t9NyO37FtPtlqSpsB0Ky")
-                    .delete()
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Produto deletado com sucesso!");
-                            }
-                        })
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "Produto deletado com sucesso!");
+                    }
+                })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         Log.w(TAG, "Error ao deletar produto")
-;                    }
+                        ;                    }
                 });
     }
 
