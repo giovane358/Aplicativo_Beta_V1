@@ -1,12 +1,10 @@
 package com.abayomi.stockbay;
 
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.view.View;
 import android.webkit.MimeTypeMap;
@@ -28,36 +26,40 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class ConfigActivity extends AppCompatActivity {
 
-    private CardView txtExit,txtResetSenha,txtTemo;
-    private ImageView Viewvoltar,Viewshare, img_photo;
+    private CardView txtExit, txtResetSenha, txtTemo;
+    private ImageView Viewvoltar, Viewshare, img_photo;
     private TextView txtID;
     private TextView txtEmail;
     private Button btnSelectPhoto, btnsave;
     private EditText editNamePhot;
 
-
     //Firebase//
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-
     private FirebaseStorage storage;
     private DatabaseReference mDatabaseref;
     private Uri filePath;
+    private static final String TAG = "DocSnippets";
+    private String urlPht;
 
     private Uri mSelectUri;
     private final int PICK_IMAGE_REQUEST = 71;
     StorageReference storageReference;
     String userID;
+    private FirebaseFirestore db;
     private ProgressBar mProgressbar;
 
     @Override
@@ -66,7 +68,8 @@ public class ConfigActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         //Inicialização do firebase//
-        mAuth   = FirebaseAuth.getInstance();
+        db  = FirebaseFirestore.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("Photo");
         mDatabaseref = FirebaseDatabase.getInstance().getReference("Photo");
         txtExit = findViewById(R.id.txtExit);
@@ -77,8 +80,6 @@ public class ConfigActivity extends AppCompatActivity {
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
         btnsave = findViewById(R.id.btnsave);
         img_photo = findViewById(R.id.img_photo);
-        editNamePhot = findViewById(R.id.editNamePhot);
-
     }
 
     @Override
@@ -93,11 +94,11 @@ public class ConfigActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null) {
             finish();
-        }else{
-            txtID.setText("ID: "+" " +user.getUid());
-            txtEmail.setText(""+user.getEmail());
-            Uri photoUrl = user.getPhotoUrl();
+        } else {
 
+            txtID.setText("ID: " + " " + user.getUid());
+            txtEmail.setText("" + user.getEmail());
+            Uri photoUrl = user.getPhotoUrl();
 
         }
     }
@@ -109,58 +110,97 @@ public class ConfigActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Selecionar imagem"), PICK_IMAGE_REQUEST);
         btnSelectPhoto.setAlpha(0);
+        savePhoto();
 
     }
-    private String getFileExtension(Uri uri)
-    {
+
+    private String getFileExtension(Uri uri) {
         ContentResolver cR = getContentResolver();
         MimeTypeMap mimeTypeMap = MimeTypeMap.getSingleton();
         return mimeTypeMap.getExtensionFromMimeType(cR.getType(uri));
     }
 
+    private void savePhotoFirestore()
+    {
+        if (filePath != null) {
+            String idP = UUID.randomUUID().toString();
+            userID = mAuth.getCurrentUser().getUid();
+            DocumentReference documentReference = db.collection("User").document(userID)
+                    .collection("Photo").document(idP);
+            Map<String, Object> photo = new HashMap<>();
+            photo.put("Id", idP);
+            documentReference.set(photo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void Void) {
+                    Toast.makeText(ConfigActivity.this, "Produto Registrado com sucesso!", Toast.LENGTH_SHORT).show();
+                    Intent Sucesso = new Intent(getApplicationContext(), ConfigActivity.class);
+                    startActivity(Sucesso);
+                }
+            });
+        }
+    }
 
     private void savePhoto() {
-        if(filePath != null)
-        {
+        if (filePath != null) {
+
+            String photo = UUID.randomUUID().toString();
             userID = mAuth.getCurrentUser().getUid();
-            StorageReference ref = storageReference.child("PhotoPerfil/"+ userID + UUID.randomUUID().toString());
+            final StorageReference ref = storageReference.child("PhotoPerfil/" + UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConfigActivity.this, "Salvo", Toast.LENGTH_LONG).show();
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConfigActivity.this, "Falha: "+e.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                    });
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String urlPhoto = uri.toString();
+                                    userID = mAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = db.collection("User").document(userID)
+                                            .collection("Photo").document();
+                                    Map<String, Object> photo = new HashMap<>();
+                                    photo.put("Id", urlPhoto);
+                                    documentReference.set(photo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void Void) {
+                                            Toast.makeText(ConfigActivity.this, "Salvo", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
 
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(ConfigActivity.this, "Falha: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                        }
+
+                    });
         }
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK
-                && data !=null && data.getData() != null) {
+                && data != null && data.getData() != null) {
             filePath = data.getData();
 
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), filePath);
                 img_photo.setImageBitmap(bitmap);
-            }
-            catch (IOException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
     //Link dos text de Config//
-    public void onClick (View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.txtExit:
                 FirebaseAuth.getInstance().signOut();
                 Intent sair = new Intent(this, MainActivity.class);

@@ -20,6 +20,7 @@ import com.google.protobuf.Empty;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class InsertActivity extends AppCompatActivity {
 
@@ -99,12 +100,17 @@ public class InsertActivity extends AppCompatActivity {
             return;
         }
 
+
+
+        String id = UUID.randomUUID().toString();
+
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = fstore.collection("User").document(userID)
-                .collection("Estoque").document();
+                .collection("Estoque").document(id);
         Map<String, Object> Est = new HashMap<>();
-        Est.put("Id"         , editNmProduto.getText().toString());
+        Est.put("Id"         , id);
         Est.put("Nome"       , editNmProduto.getText().toString());
+        Est.put("Search"     , editNmProduto.getText().toString().toLowerCase());
         Est.put("Quantidade" , editQtd      .getText().toString());
         Est.put("DataCompra" , editdtCompra .getText().toString());
         Est.put("ValoreVenda", editVlVenda  .getText().toString());

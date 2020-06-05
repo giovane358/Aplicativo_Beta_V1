@@ -78,4 +78,6 @@
     <string name="navTermos">Termo de uso do App</string>
     <string name="avatar">Photo</string>
     <string name="Main">Bem-Vindo ao Stockbay</string>
+    <string name="Excluir">Excluir item</string>
+    <string name="btnExluir">Excluir produto</string>
 </resources>

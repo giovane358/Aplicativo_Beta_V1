@@ -11,12 +11,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.view.menu.MenuItemWrapperICS;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,6 +36,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 public class PrincipalActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener, PopupMenu.OnMenuItemClickListener {
@@ -50,10 +53,12 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
     String userID;
     CustomAdapter adapter;
     ProgressDialog pd;
+    private boolean insertMode;
 
     List<Model> modelList = new ArrayList<>();
     // layout kmanger for recycleview
     RecyclerView.LayoutManager layoutManager;
+    private String selectedItemName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,12 +112,61 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
+
+        MenuItem item = menu.findItem(R.id.search);
+        SearchView searchView = (SearchView)MenuItemCompat.getActionView(item);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                    searchData(s);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            }
+        });
+
         return super.onCreateOptionsMenu(menu);
+    }
+
+    private void searchData(String s) {
+        db.collection("User").document(userID)
+                .collection("Estoque").whereEqualTo("Search", s.toLowerCase())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        modelList.clear();
+                            for(DocumentSnapshot doc: task.getResult())
+                            {
+                                Model model = new Model(doc.getString("id"),
+                                        doc.getString("Nome"),
+                                        doc.getString("Quantidade"),
+                                        doc.getString("ValoreVenda"));
+                                modelList.add(model);
+                            }
+                            //adapter
+                            adapter = new CustomAdapter(modelList);
+                            //set adapterto recyclerview
+                            mRecycleView.setAdapter(adapter);
+                        }
+
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(PrincipalActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
+       
+        
         switch (item.getItemId()){
             case R.id.nav_settings:
                 Intent config = new Intent(getApplicationContext(), ConfigActivity.class);
@@ -152,7 +206,8 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
                 startActivity(edit);
                 break;
             case 122:
-                deleteItem();
+
+
         }
 
         return super.onContextItemSelected(item);
@@ -160,10 +215,10 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
 
     private void deleteItem()
     {
-
+        String id = UUID.randomUUID().toString();
         userID = mAuth.getCurrentUser().getUid();
         db.collection("User").document(userID)
-                .collection("Estoque").document("t9NyO37FtPtlqSpsB0Ky")
+                .collection("Estoque").document()
                 .delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

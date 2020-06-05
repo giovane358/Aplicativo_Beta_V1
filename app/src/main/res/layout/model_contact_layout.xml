@@ -15,11 +15,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            app:srcCompat="@drawable/ic_account_circle_black_24dp" />
+
         <TextView
             android:id="@+id/editNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Nome"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="-50dp"
             android:textColor="#000"
             android:textSize="18sp" />
 
@@ -28,6 +39,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Fone"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="5dp"
             android:textColor="#000"
             android:textSize="18sp" />
 
