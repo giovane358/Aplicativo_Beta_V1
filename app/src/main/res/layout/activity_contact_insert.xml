@@ -77,6 +77,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:ems="10"
+        android:maxLength="12"
         android:inputType="phone"
         android:hint="@string/Telefone"
         app:layout_constraintEnd_toEndOf="parent"

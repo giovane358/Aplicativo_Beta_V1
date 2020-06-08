@@ -1,10 +1,16 @@
 package com.abayomi.stockbay;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.telephony.PhoneNumberFormattingTextWatcher;
+import android.telephony.PhoneNumberUtils;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -28,6 +34,7 @@ public class ContactInsert extends AppCompatActivity {
     FirebaseFirestore fstore;
     String userID;
     private static final String TAG = "DocSnippets";
+    String lastChar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,10 @@ public class ContactInsert extends AppCompatActivity {
 
         mAuth  = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
+
+
+
+        editFone.addTextChangedListener(textWatcher);
     }
 
     private void RegisterContact(){
@@ -69,6 +80,38 @@ public class ContactInsert extends AppCompatActivity {
                     }
                 });
     }
+
+    TextWatcher textWatcher = new TextWatcher() {
+
+
+        int length_before = 0;
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            length_before = s.length();
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (length_before < s.length()) {
+                if (s.length() == 2 || s.length() == 12)
+                    s.append("-");
+                if (s.length() > 3) {
+                    if (Character.isDigit(s.charAt(3)))
+                        s.insert(3, "-");
+                }
+                if (s.length() > 8) {
+                    if (Character.isDigit(s.charAt(7)))
+                        s.insert(7, "-");
+                }
+            }
+        }
+    };
 
     public void onClick (View v) {
         switch (v.getId()) {

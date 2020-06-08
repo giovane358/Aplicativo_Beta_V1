@@ -86,7 +86,7 @@
         android:layout_marginEnd="32dp"
         android:ems="10"
         android:hint="@string/EditdtCompra"
-        android:inputType="datetime"
+        android:inputType="date"
         android:textColor="#fff"
         android:textColorHint="@color/fundo_menu"
         app:layout_constraintEnd_toEndOf="parent"

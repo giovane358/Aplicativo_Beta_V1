@@ -80,7 +80,10 @@ public class ConfigActivity extends AppCompatActivity {
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
         btnsave = findViewById(R.id.btnsave);
         img_photo = findViewById(R.id.img_photo);
+
     }
+
+
 
     @Override
     protected void onStart() {
@@ -145,7 +148,7 @@ public class ConfigActivity extends AppCompatActivity {
 
             String photo = UUID.randomUUID().toString();
             userID = mAuth.getCurrentUser().getUid();
-            final StorageReference ref = storageReference.child("PhotoPerfil/" + UUID.randomUUID().toString());
+            final StorageReference ref = storageReference.child("PhotoPerfil/").child(userID).child (UUID.randomUUID().toString());
             ref.putFile(filePath)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override

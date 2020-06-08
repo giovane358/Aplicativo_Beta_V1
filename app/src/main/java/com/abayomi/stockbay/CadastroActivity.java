@@ -49,7 +49,6 @@ public class CadastroActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth       = FirebaseAuth.getInstance();
-
         txtEmail    = (EditText) findViewById(R.id.txtEmail);
         txtSenha    = (EditText) findViewById(R.id.txtSenha);
         btnRegister = (Button) findViewById(R.id.btnLogin);

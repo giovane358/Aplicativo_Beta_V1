@@ -2,6 +2,8 @@ package com.abayomi.stockbay;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.protobuf.Empty;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -32,6 +35,7 @@ public class InsertActivity extends AppCompatActivity {
     private static final String TAG = "DocSnippets";
     private Object idProdut;
     private EditText id;
+    String UID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +52,7 @@ public class InsertActivity extends AppCompatActivity {
         editVlVenda   = findViewById(R.id.editVlVenda);
         editDesc      = findViewById(R.id.editDesc);
         btnProd       = findViewById(R.id.btnProd);
+        editdtCompra.addTextChangedListener(tw);
 
     }
 
@@ -101,12 +106,12 @@ public class InsertActivity extends AppCompatActivity {
         }
 
 
+        String UID = editNmProduto.getText().toString();
 
         String id = UUID.randomUUID().toString();
-
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = fstore.collection("User").document(userID)
-                .collection("Estoque").document(id);
+                .collection("Estoque").document(UID);
         Map<String, Object> Est = new HashMap<>();
         Est.put("Id"         , id);
         Est.put("Nome"       , editNmProduto.getText().toString());
@@ -131,6 +136,64 @@ public class InsertActivity extends AppCompatActivity {
                     }
                 });
     }
+
+
+
+    TextWatcher tw = new TextWatcher() {
+
+        private String current = "";
+        private String ddmmyyyy = "DDMMYYYY";
+        private Calendar cal = Calendar.getInstance();
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            if (!s.toString().equals(current)) {
+                String clean = s.toString().replaceAll("[^\\d.]|\\.", "");
+                String cleanC = current.replaceAll("[^\\d.]|\\.", "");
+
+                int cl = clean.length();
+                int sel = cl;
+                for (int i = 2; i <= cl && i < 6; i += 2) {
+                    sel++;
+                }
+                if (clean.equals(cleanC)) sel--;
+
+                if (clean.length() < 8){
+                    clean = clean + ddmmyyyy.substring(clean.length());
+                }else{
+                    int day  = Integer.parseInt(clean.substring(0,2));
+                    int mon  = Integer.parseInt(clean.substring(2,4));
+                    int year = Integer.parseInt(clean.substring(4,8));
+
+                    mon = mon < 1 ? 1 : mon > 12 ? 12 : mon;
+                    cal.set(Calendar.MONTH, mon-1);
+                    year = (year<1900)?1900:(year>2100)?2100:year;
+                    cal.set(Calendar.YEAR, year);
+                    day = (day > cal.getActualMaximum(Calendar.DATE))? cal.getActualMaximum(Calendar.DATE):day;
+                    clean = String.format("%02d%02d%02d",day, mon, year);
+                }
+                clean = String.format("%s/%s/%s", clean.substring(0, 2),
+                        clean.substring(2, 4),
+                        clean.substring(4, 8));
+
+                sel = sel < 0 ? 0 : sel;
+                current = clean;
+                editdtCompra.setText(current);
+                editdtCompra.setSelection(sel < current.length() ? sel : current.length());
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     public void onClick (View v) {
         switch (v.getId()) {

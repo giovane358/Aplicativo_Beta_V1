@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -54,13 +56,37 @@ public class DeleteActivity extends AppCompatActivity {
     {
         switch (view.getId()) {
             case R.id.btnDelete:
-
+                deleteItem();
                 break;
         }
     }
 
-    public void deleteItem(View v) {
+    public void deleteItem() {
+        
+        String nome = editDelete_Name.getText().toString();
+        String id = UUID.randomUUID().toString();
+             userID = mAuth.getCurrentUser().getUid();
+                db.collection("User").document(userID)
+                    .collection("Estoque").document(nome)
+                        .delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid)
+                                {
+                                    Toast.makeText(DeleteActivity.this, "Deletado com Sucesso!", Toast.LENGTH_SHORT).show();
+                                    Intent voltar = new Intent(getApplicationContext(), PrincipalActivity.class);
+                                    startActivity(voltar);
 
-
+                                }
+                            })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e)
+                                    {
+                                         Toast.makeText(DeleteActivity.this, "Não foi possível Deletar esse produto", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
     }
+
+
 }

@@ -206,7 +206,9 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
                 startActivity(edit);
                 break;
             case 122:
-
+                Intent delete = new Intent(getApplicationContext(), DeleteActivity.class);
+                startActivity(delete);
+                break;
 
         }
 
@@ -215,6 +217,7 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
 
     private void deleteItem()
     {
+
         String id = UUID.randomUUID().toString();
         userID = mAuth.getCurrentUser().getUid();
         db.collection("User").document(userID)
@@ -229,10 +232,11 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error ao deletar produto")
-                        ;                    }
+                        Toast.makeText(PrincipalActivity.this, "Não foi possível Deletar esse produto", Toast.LENGTH_SHORT).show();
+                    }
                 });
     }
+
 
 
 }
