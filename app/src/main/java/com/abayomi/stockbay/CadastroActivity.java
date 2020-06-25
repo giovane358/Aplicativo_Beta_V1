@@ -14,12 +14,19 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirestoreRegistrar;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 
@@ -36,11 +43,12 @@ public class CadastroActivity extends AppCompatActivity {
                     ".{6,}"+            //at least 6 character
                     "$");
 
-    private EditText txtEmail, txtSenha;
+    private EditText txtEmail, txtSenha,editEmpresa,editFoneCd;
     Button btnRegister;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     FirebaseFirestore fstore;
+    private String userID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +57,12 @@ public class CadastroActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth       = FirebaseAuth.getInstance();
+        fstore        = FirebaseFirestore.getInstance();
         txtEmail    = (EditText) findViewById(R.id.txtEmail);
         txtSenha    = (EditText) findViewById(R.id.txtSenha);
-        btnRegister = (Button) findViewById(R.id.btnLogin);
+        btnRegister = (Button) findViewById(R.id.btnRegister);
+        editEmpresa = (EditText) findViewById(R.id.editEmpresa);
+        editFoneCd = (EditText) findViewById(R.id.editFoneCd);
 
     }
 
@@ -91,20 +102,37 @@ public class CadastroActivity extends AppCompatActivity {
                             User user = new User(
                                     email
                             );
+
+
+                            String id = UUID.randomUUID().toString();
+                            String UID = editEmpresa.getText().toString();
+                            userID = mAuth.getCurrentUser().getUid();
+                            DocumentReference documentReference = fstore.collection("User").document(userID)
+                                    .collection("Aut").document(UID);
+                            Map<String, Object> Aut = new HashMap<>();
+                            Aut.put("id" , id);
+                            Aut.put("Empresa", editEmpresa.getText().toString());
+                            Aut.put("Telefone", editFoneCd.getText().toString());
+                            Aut.put("Email", txtEmail.getText().toString());
+                            documentReference.set(Aut).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid)
+                                {
+                                    Toast.makeText(CadastroActivity.this, "Legal", Toast.LENGTH_SHORT).show();
+
+
+                                }
+                            });
                             FirebaseDatabase.getInstance().getReference("Users")
                                     .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                                     .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    progressBar.setVisibility(View.GONE);
-                                    if (task.isSuccessful())
-                                    {
-                                        Toast.makeText(CadastroActivity.this, getString(R.string.btn_registrar), Toast.LENGTH_LONG).show();
-                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                        startActivity(intent);
+                                        progressBar.setVisibility(View.GONE);
+                                            if (task.isSuccessful())
+                                            {
 
-                                    }else {
-                                    }
+                                            }
                                 }
                             });
                         }else {
@@ -114,6 +142,30 @@ public class CadastroActivity extends AppCompatActivity {
 
 
                 });
+    }
+
+    private void savefireStore() {
+
+        String id = UUID.randomUUID().toString();
+        String UID = editEmpresa.getText().toString();
+        userID = mAuth.getCurrentUser().getUid();
+        DocumentReference documentReference = fstore.collection("User").document(userID)
+                .collection("Aut").document(UID);
+        Map<String, Object> Aut = new HashMap<>();
+        Aut.put("id" , id);
+        Aut.put("Empresa", editEmpresa.getText().toString());
+        Aut.put("Telefone", editFoneCd.getText().toString());
+        Aut.put("Email", txtEmail.getText().toString());
+        documentReference.set(Aut).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid)
+            {
+                Toast.makeText(CadastroActivity.this, "Legal", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+
+            }
+        });
     }
 
     public void onClick (View v){

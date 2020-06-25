@@ -83,8 +83,6 @@ public class ConfigActivity extends AppCompatActivity {
 
     }
 
-
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -98,11 +96,9 @@ public class ConfigActivity extends AppCompatActivity {
         if (user == null) {
             finish();
         } else {
-
             txtID.setText("ID: " + " " + user.getUid());
             txtEmail.setText("" + user.getEmail());
             Uri photoUrl = user.getPhotoUrl();
-
         }
     }
 
@@ -113,7 +109,6 @@ public class ConfigActivity extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Selecionar imagem"), PICK_IMAGE_REQUEST);
         btnSelectPhoto.setAlpha(0);
-        savePhoto();
 
     }
 
@@ -123,7 +118,7 @@ public class ConfigActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(cR.getType(uri));
     }
 
-    private void savePhotoFirestore()
+   /* private void savePhotoFirestore()
     {
         if (filePath != null) {
             String idP = UUID.randomUUID().toString();
@@ -141,45 +136,12 @@ public class ConfigActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 
     private void savePhoto() {
         if (filePath != null) {
 
-            String photo = UUID.randomUUID().toString();
-            userID = mAuth.getCurrentUser().getUid();
-            final StorageReference ref = storageReference.child("PhotoPerfil/").child(userID).child (UUID.randomUUID().toString());
-            ref.putFile(filePath)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    String urlPhoto = uri.toString();
-                                    userID = mAuth.getCurrentUser().getUid();
-                                    DocumentReference documentReference = db.collection("User").document(userID)
-                                            .collection("Photo").document();
-                                    Map<String, Object> photo = new HashMap<>();
-                                    photo.put("Id", urlPhoto);
-                                    documentReference.set(photo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void Void) {
-                                            Toast.makeText(ConfigActivity.this, "Salvo", Toast.LENGTH_LONG).show();
-                                        }
-                                    });
 
-                                }
-                            })
-                            .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(ConfigActivity.this, "Falha: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                        }
-
-                    });
         }
     }
 

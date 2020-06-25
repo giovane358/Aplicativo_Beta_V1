@@ -59,6 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="120dp"
             android:layout_marginTop="5dp"
+            android:gravity="center"
             android:layout_marginRight="100dp"
             android:onClick="onClick"
             android:textColor="#fff" />
@@ -67,10 +68,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="#fff"
+            android:gravity="center"
             android:layout_marginTop="5dp"
-            android:layout_marginLeft="130dp"
+            android:layout_marginLeft="120dp"
             android:textSize="9sp"
-            android:layout_marginRight="120dp"
+            android:layout_marginRight="100dp"
          />
 
     </LinearLayout> <!--finish menu user-->

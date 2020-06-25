@@ -27,7 +27,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="160dp"
         android:text="@string/Main"
-        android:textColor="#F5F5F5"
+        android:textColor="#000"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -89,7 +89,7 @@
             android:layout_height="wrap_content"
             android:onClick="onClick"
             android:text="Lembra-me Senha"
-            android:textColor="#fff" />
+            android:textColor="#000" />
         </RadioGroup>
 
     <Button
@@ -115,6 +115,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginEnd="80dp"
         android:onClick="callReset"
+        android:textColor="#000"
         android:text="Esqueci minha senha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -130,6 +131,7 @@
         android:onClick="onClick"
         android:text="Não tem conta! Registre-se"
         android:textSize="18sp"
+        android:textColor="#000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnLogin" />

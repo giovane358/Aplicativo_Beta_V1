@@ -27,7 +27,6 @@ import java.util.UUID;
 
 public class DeleteActivity extends AppCompatActivity {
 
-
     private EditText editDelete_Name;
     private Button btnDelete;
     private String userID;
@@ -39,12 +38,10 @@ public class DeleteActivity extends AppCompatActivity {
     private static final String TAG = "DocSnippets";
     private  static final String KEY_DESCRIPTION = "description";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_delete);
-
 
         editDelete_Name = findViewById(R.id.editDelete_Name);
         btnDelete = findViewById(R.id.btnDelete);
@@ -87,6 +84,4 @@ public class DeleteActivity extends AppCompatActivity {
                                     }
                                 });
     }
-
-
 }

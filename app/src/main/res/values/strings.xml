@@ -80,4 +80,5 @@
     <string name="Main">Bem-Vindo ao Stockbay</string>
     <string name="Excluir">Excluir item</string>
     <string name="btnExluir">Excluir produto</string>
+    <string name="editEmpresa">Nome da Empresa</string>
 </resources>

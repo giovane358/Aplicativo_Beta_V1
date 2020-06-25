@@ -12,15 +12,18 @@
         android:id="@+id/nav_novo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableLeft="@drawable/ic_add_black_24dp"
+
+        android:drawableLeft="@drawable/ic_add"
         android:text="@string/nav_AdicionarNovoContanct"
+        android:layout_marginTop="5dp"
         android:textSize="18sp"
         android:onClick="onClick"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_contact"
             android:layout_width="match_parent"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="35dp"
+
             android:layout_height="wrap_content"
 
             />

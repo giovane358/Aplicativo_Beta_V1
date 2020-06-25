@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
     ///firebase
     private FirebaseAuth mAuth;
+    private FirebaseFirestore fstore;
 
 
     @Override
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
+        fstore = FirebaseFirestore.getInstance();
 
         btnLogin = (Button)   findViewById(R.id.btnLogin);
         txLogin = (EditText) findViewById(R.id.editNmProduto);

@@ -165,8 +165,7 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-       
-        
+
         switch (item.getItemId()){
             case R.id.nav_settings:
                 Intent config = new Intent(getApplicationContext(), ConfigActivity.class);
