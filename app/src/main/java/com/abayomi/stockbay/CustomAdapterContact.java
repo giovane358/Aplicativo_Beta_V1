@@ -8,19 +8,22 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.abayomi.stockbay.Model.ModelContact;
+
 import java.util.List;
 
 public class CustomAdapterContact extends RecyclerView.Adapter<ViewHolderContact> {
 
     List<ModelContact> modelContactList;
 
-    public CustomAdapterContact(List<ModelContact> modelContactList){
+    public CustomAdapterContact(List<ModelContact> modelContactList) {
         this.modelContactList = modelContactList;
     }
 
     @NonNull
     @Override
     public ViewHolderContact onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
+
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.model_contact_layout, viewGroup, false);
 

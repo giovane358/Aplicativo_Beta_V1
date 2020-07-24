@@ -1,4 +1,4 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Model;
 
 public class Model {
 
@@ -17,6 +17,7 @@ public class Model {
     public String getId() {
         return id;
     }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -24,11 +25,15 @@ public class Model {
     public String getNome() {
         return Nome;
     }
-    public void setNome(String nome) { Nome = nome; }
+
+    public void setNome(String nome) {
+        Nome = nome;
+    }
 
     public String getQuantidade() {
         return Quantidade;
     }
+
     public void setQuantidade(String quantidade) {
         Quantidade = quantidade;
     }
@@ -36,6 +41,7 @@ public class Model {
     public String getValoreVenda() {
         return ValoreVenda;
     }
+
     public void setValoreVenda(String valoreVenda) {
         ValoreVenda = valoreVenda;
     }

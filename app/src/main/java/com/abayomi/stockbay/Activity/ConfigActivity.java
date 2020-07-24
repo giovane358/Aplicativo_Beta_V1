@@ -1,5 +1,6 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -20,6 +21,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -28,7 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -49,7 +51,7 @@ public class ConfigActivity extends AppCompatActivity {
     //Firebase//
     private FirebaseAuth mAuth;
     private FirebaseUser user;
-    private FirebaseStorage storage;
+
     private DatabaseReference mDatabaseref;
     private Uri filePath;
     private static final String TAG = "DocSnippets";
@@ -68,9 +70,9 @@ public class ConfigActivity extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         //Inicialização do firebase//
-        db  = FirebaseFirestore.getInstance();
+        db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-        storageReference = FirebaseStorage.getInstance().getReference("Photo");
+
         mDatabaseref = FirebaseDatabase.getInstance().getReference("Photo");
         txtExit = findViewById(R.id.txtExit);
         txtEmail = findViewById(R.id.txtEmail);
@@ -80,7 +82,6 @@ public class ConfigActivity extends AppCompatActivity {
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
         btnsave = findViewById(R.id.btnsave);
         img_photo = findViewById(R.id.img_photo);
-
     }
 
     @Override
@@ -88,7 +89,6 @@ public class ConfigActivity extends AppCompatActivity {
         super.onStart();
         virificar();
     }
-
     //Pegando Info do Usuário//
     public void virificar() {
         // [START get_user_profile]
@@ -118,34 +118,61 @@ public class ConfigActivity extends AppCompatActivity {
         return mimeTypeMap.getExtensionFromMimeType(cR.getType(uri));
     }
 
-   /* private void savePhotoFirestore()
-    {
-        if (filePath != null) {
-            String idP = UUID.randomUUID().toString();
-            userID = mAuth.getCurrentUser().getUid();
-            DocumentReference documentReference = db.collection("User").document(userID)
-                    .collection("Photo").document(idP);
-            Map<String, Object> photo = new HashMap<>();
-            photo.put("Id", idP);
-            documentReference.set(photo).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void Void) {
-                    Toast.makeText(ConfigActivity.this, "Produto Registrado com sucesso!", Toast.LENGTH_SHORT).show();
-                    Intent Sucesso = new Intent(getApplicationContext(), ConfigActivity.class);
-                    startActivity(Sucesso);
-                }
-            });
-        }
-    }*/
-
     private void savePhoto() {
         if (filePath != null) {
 
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("Salvando foto de perfil...");
+            progressDialog.show();
 
+            String photo = UUID.randomUUID().toString();
+            userID = mAuth.getCurrentUser().getUid();
+            final StorageReference ref = storageReference.child(userID).child(UUID.randomUUID().toString());
+            ref.putFile(filePath)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            ref.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    String urlPhoto = uri.toString();
+                                    userID = mAuth.getCurrentUser().getUid();
+                                    DocumentReference documentReference = db.collection("User").document(userID)
+                                            .collection("Photo").document();
+                                    Map<String, Object> photo = new HashMap<>();
+                                    photo.put("Id", urlPhoto);
+                                    documentReference.set(photo).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void Void) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(ConfigActivity.this, "Salvo", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                                }
+                            })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            progressDialog.dismiss();
+                                            Toast.makeText(ConfigActivity.this, "Falha: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+                        }
+
+                    })
+
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred() / taskSnapshot
+                                    .getTotalByteCount());
+                            progressDialog.setMessage("Uploaded " + (int) progress + "%");
+                        }
+                    });
         }
     }
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -198,9 +225,29 @@ public class ConfigActivity extends AppCompatActivity {
             case R.id.btnsave:
                 savePhoto();
                 break;
-
+            case R.id.Viewshare:
+               /* share();*/
+                break;
         }
     }
+
+   /* private void dow()
+    {
+        mProgressbar.setVisibility(View.VISIBLE);
+        final StorageReference ref = storageReference.getRe         .child("photo").child(userID);
+    }
+
+    private void share() {
+        String msg = "tst";
+        if (user != null)
+        {
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType(msg);
+            startActivity(share.createChooser(share,"Compartilhar o App"));
+        }
+
+        }*/
+
 
 
 }

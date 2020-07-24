@@ -1,16 +1,16 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import android.widget.Toolbar;
 
+import com.abayomi.stockbay.Conexao;
+import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +30,7 @@ public class ResetActivity extends AppCompatActivity {
         eventoClick();
 
     }
+
     private void eventoClick() {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,7 +50,7 @@ public class ResetActivity extends AppCompatActivity {
                             alert("Um e-mail para a alteração da senha foi enviado.");
                             finish();
                         } else {
-                            alert ("E-mail fornecido não foi encontrado.");
+                            alert("E-mail fornecido não foi encontrado.");
                         }
                     }
                 });
@@ -60,8 +61,8 @@ public class ResetActivity extends AppCompatActivity {
     }
 
     private void inicializaComponentes() {
-        editResetEmail     =  findViewById(R.id.editResetEmail);
-        btnReset =  findViewById(R.id.btnReset);
+        editResetEmail = findViewById(R.id.editResetEmail);
+        btnReset = findViewById(R.id.btnReset);
     }
 
     @Override

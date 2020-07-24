@@ -1,4 +1,4 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -17,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -43,26 +42,25 @@ public class ContactInsert extends AppCompatActivity {
 
         editNm = findViewById(R.id.editNm);
         editEmail = findViewById(R.id.editEmail);
-        editFone  = findViewById(R.id.editFone);
+        editFone = findViewById(R.id.editFone);
         btnAdicionar = findViewById(R.id.btnAdicionar);
 
-        mAuth  = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
-
 
 
         editFone.addTextChangedListener(textWatcher);
     }
 
-    private void RegisterContact(){
+    private void RegisterContact() {
 
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = fstore.collection("User").document(userID)
                 .collection("Contato").document();
         Map<String, Object> Contact = new HashMap<>();
-        Contact.put("NomeFornc"       , editNm     .getText().toString());
-        Contact.put("EmailFornc"      , editEmail  .getText().toString());
-        Contact.put("TelefoneFornec"   , editFone   .getText().toString());
+        Contact.put("NomeFornc", editNm.getText().toString());
+        Contact.put("EmailFornc", editEmail.getText().toString());
+        Contact.put("TelefoneFornec", editFone.getText().toString());
 
         documentReference.set(Contact).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -90,6 +88,7 @@ public class ContactInsert extends AppCompatActivity {
         public void onTextChanged(CharSequence s, int start, int before, int count) {
 
         }
+
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             length_before = s.length();
@@ -113,13 +112,13 @@ public class ContactInsert extends AppCompatActivity {
         }
     };
 
-    public void onClick (View v) {
+    public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnAdicionar:
                 RegisterContact();
                 break;
             case R.id.txtCancelar:
-                Intent Voltar = new Intent(getApplicationContext() , PrincipalActivity.class);
+                Intent Voltar = new Intent(getApplicationContext(), PrincipalActivity.class);
                 startActivity(Voltar);
                 break;
         }

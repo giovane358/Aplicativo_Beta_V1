@@ -4,18 +4,17 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ViewHolderContact extends RecyclerView.ViewHolder {
+public class ViewHolderNotification extends RecyclerView.ViewHolder {
 
-    TextView editNome, editFone;
-    View mView;
-    CardView cardView;
+    TextView editNome, editQTD,editDt, editHr;
+    View mViewNotification;
 
-    public ViewHolderContact(@NonNull View itemView) {
+    public ViewHolderNotification(@NonNull View itemView) {
         super(itemView);
-        mView = itemView;
+
+        mViewNotification = itemView;
 
         //Item Click
         itemView.setOnClickListener(new View.OnClickListener() {
@@ -24,7 +23,7 @@ public class ViewHolderContact extends RecyclerView.ViewHolder {
                 mClickListener.onItemClick(view, getAdapterPosition());
             }
         });
-        //item long click listener
+        //Item Click onLOng
         itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
@@ -32,14 +31,16 @@ public class ViewHolderContact extends RecyclerView.ViewHolder {
                 return false;
             }
         });
-        //initialize views with model_layout.xml
+
         editNome = itemView.findViewById(R.id.editNome);
-        editFone = itemView.findViewById(R.id.editFone);
-        cardView = itemView.findViewById(R.id.cardView);
+        editQTD = itemView.findViewById(R.id.editQTDS);
+        editDt = itemView.findViewById(R.id.editDt);
+        editHr = itemView.findViewById(R.id.editHr);
+
 
     }
 
-    private ViewHolderContact.ClickListener mClickListener;
+    private ViewHolderNotification.ClickListener mClickListener;
 
     //interface for click listener
     public interface ClickListener {
@@ -48,8 +49,9 @@ public class ViewHolderContact extends RecyclerView.ViewHolder {
         void onLongClick(View view, int position);
     }
 
-    public void setOnClickListener(ViewHolderContact.ClickListener clickListener) {
+    public void setOnClickListener(ViewHolderNotification.ClickListener clickListener) {
         mClickListener = clickListener;
     }
 
 }
+

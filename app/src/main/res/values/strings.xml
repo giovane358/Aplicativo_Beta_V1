@@ -81,4 +81,10 @@
     <string name="Excluir">Excluir item</string>
     <string name="btnExluir">Excluir produto</string>
     <string name="editEmpresa">Nome da Empresa</string>
+    <string name="CamposUID">Codigo (ID)</string>
+    <string name="dialog_fire_missiles">String</string>
+    <string name="TXTDT">Data de Compra</string>
+    <string name="VlCusto">Custo</string>
+    <string name="VlVenda">Valor Venda</string>
+    <string name="action_config">Configuração</string>
 </resources>

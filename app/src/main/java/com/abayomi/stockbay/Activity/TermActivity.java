@@ -1,8 +1,10 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.abayomi.stockbay.R;
 
 public class TermActivity extends AppCompatActivity {
 

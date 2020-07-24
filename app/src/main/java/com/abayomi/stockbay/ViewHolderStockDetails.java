@@ -1,6 +1,5 @@
 package com.abayomi.stockbay;
 
-import android.view.ContextMenu;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,13 +7,13 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener {
+public class ViewHolderStockDetails extends RecyclerView.ViewHolder {
 
     TextView rTitle, rQtd, rDataCompra, rValoreVenda, rValorCusto, rDescricao;
     View mView;
-    CardView cardView;
 
-    public ViewHolder(@NonNull View itemView) {
+
+    public ViewHolderStockDetails(@NonNull View itemView) {
         super(itemView);
         mView = itemView;
 
@@ -33,25 +32,19 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreate
                 return false;
             }
         });
+
         //initialize views with model_layout.xml
         rTitle = itemView.findViewById(R.id.rTitle);
         rQtd = itemView.findViewById(R.id.rQtd);
         rValoreVenda = itemView.findViewById(R.id.rValoreVenda);
-        cardView = itemView.findViewById(R.id.cardView);
-        cardView.setOnCreateContextMenuListener(this);
+        rDataCompra = itemView.findViewById(R.id.rDTCompr);
+        rValorCusto = itemView.findViewById(R.id.rValoreCusto);
+        rDescricao = itemView.findViewById(R.id.rDesc);
 
 
-    }
-
-    private ViewHolder.ClickListener mClickListener;
-
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo contextMenuInfo) {
-        menu.add(this.getAdapterPosition(), 121, 0, "Editar");
-        menu.add(this.getAdapterPosition(), 122, 1, "Excluir");
-        menu.add(this.getAdapterPosition(), 123, 2, "Detalhes");
 
     }
+    private ViewHolderStockDetails.ClickListener mClickListener;
 
     //interface for click listener
     public interface ClickListener {
@@ -60,7 +53,7 @@ public class ViewHolder extends RecyclerView.ViewHolder implements View.OnCreate
         void onLongClick(View view, int position);
     }
 
-    public void setOnClickListener(ViewHolder.ClickListener clickListener) {
+    public void setOnClickListener(ViewHolderStockDetails.ClickListener clickListener) {
         mClickListener = clickListener;
     }
 

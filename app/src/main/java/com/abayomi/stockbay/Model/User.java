@@ -1,11 +1,10 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Model;
 
 public class User {
 
-    public  String email;
+    public String email;
 
-    public void User()
-    {
+    public void User() {
 
     }
 

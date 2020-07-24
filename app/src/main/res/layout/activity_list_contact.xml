@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/cor_de_fundo"
     android:orientation="vertical"
-    tools:context=".ListContactActivity">
+    tools:context=".Activity.ListContactActivity">
 
     <TextView
         android:id="@+id/nav_novo"

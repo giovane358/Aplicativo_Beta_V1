@@ -1,19 +1,21 @@
 package com.abayomi.stockbay;
 
-import android.content.Context;
+import android.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.abayomi.stockbay.Activity.PrincipalActivity;
+import com.abayomi.stockbay.Model.Model;
+
 import java.util.List;
 
 public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
 
-
     List<Model> modelList;
-    List<ModelContact> modelContactList;
 
     public CustomAdapter(List<Model> modelList) {
         this.modelList = modelList;
@@ -31,12 +33,9 @@ public class CustomAdapter extends RecyclerView.Adapter<ViewHolder> {
             @Override
             public void onItemClick(View view, int position) {
 
-
-
                 String nome = modelList.get(position).getNome();
                 String qtd = modelList.get(position).getQuantidade();
                 String Vlvenda = modelList.get(position).getValoreVenda();
-
 
             }
 

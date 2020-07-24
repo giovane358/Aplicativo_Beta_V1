@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/cor_de_fundo"
-    tools:context=".MainActivity">
+    tools:context=".Activity.MainActivity">
 
 
     <ImageView
@@ -46,7 +46,7 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textColorHint="@color/fundo_menu"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -65,6 +65,7 @@
         android:drawableLeft="@drawable/ic_lock_black"
         android:ems="10"
         android:hint="Senha"
+        android:color="#000"
         android:inputType="textPassword"
         android:textColorHint="@color/fundo_menu"
         app:layout_constraintEnd_toEndOf="parent"

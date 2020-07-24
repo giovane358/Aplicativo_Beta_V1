@@ -11,25 +11,43 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DeleteActivity"></activity>
-        <activity android:name=".EditActivity" />
-        <activity android:name=".NotificationActivity" />
-        <activity android:name=".TermActivity" />
-        <activity android:name=".ResetActivity" />
-        <activity android:name=".ContactInsert" />
-        <activity android:name=".ListContactActivity" />
-        <activity android:name=".PrincipalActivity" />
-        <activity android:name=".HeaderActivity" />
-        <activity android:name=".InsertActivity" />
-        <activity android:name=".CadastroActivity" />
-        <activity android:name=".ConfigActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.DetalhesActivity"></activity>
+        <activity android:name=".Activity.DeleteActivity" />
+        <activity android:name=".Activity.EditActivity" />
+        <activity android:name=".Activity.NotificationActivity" />
+        <activity android:name=".Activity.TermActivity" />
+        <activity android:name=".Activity.ResetActivity" />
+        <activity android:name=".Activity.ContactInsert" />
+        <activity android:name=".Activity.ListContactActivity" />
+        <activity android:name=".Activity.PrincipalActivity" />
+        <activity android:name=".Activity.HeaderActivity" />
+        <activity android:name=".Activity.InsertActivity" />
+        <activity android:name=".Activity.CadastroActivity" />
+        <activity android:name=".Activity.ConfigActivity" />
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--<service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+        &lt;!&ndash; Set custom default icon. This is used when no icon is set for incoming notification messages.
+     See README(https://goo.gl/l4GJaQ) for more. &ndash;&gt;
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo" />
+        &lt;!&ndash; Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. &ndash;&gt;
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccent" />-->
 
         <meta-data
             android:name="preloaded_fonts"

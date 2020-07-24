@@ -1,16 +1,15 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Model;
 
 public class Upload {
     private String filePath;
     private String mNome;
 
-    public Upload()
-    {
+    public Upload() {
 
     }
-    public Upload(String name, String imageUrl)
-    {
-        if (name.trim().equals("")){
+
+    public Upload(String name, String imageUrl) {
+        if (name.trim().equals("")) {
             name = "sem Name";
         }
 

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="@color/cor_de_fundo"
+    app:contentPadding="5dp"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/cardView">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--NOME Nome-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="264dp"
+            android:text="@string/TXTNOME"
+            android:textColor="#000"
+            android:textSize="6pt" />
+        <!--Nome-->
+        <TextView
+            android:id="@+id/rTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="-23dp"
+            android:text="Nome"
+            android:textColor="#000"
+            android:textSize="6pt" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="264dp"
+            android:text="@string/TXTQTDE"
+            android:textColor="#000"
+            android:textSize="6pt" />
+        <!--Quantidade-->
+        <TextView
+            android:id="@+id/rQtd"
+            android:text="Quantidade"
+            android:textSize="6pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="264dp"
+            android:text="@string/TXTDT"
+            android:textColor="#000"
+            android:textSize="6pt" />
+        <!--Quantidade-->
+        <TextView
+            android:id="@+id/rDTCompr"
+            android:text="Quantidade"
+            android:textSize="6pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="290dp"
+            android:text="@string/VlCusto"
+            android:textColor="#000"
+            android:textSize="6pt" />
+
+        <!--DataCompra-->
+        <TextView
+            android:id="@+id/rValoreCusto"
+            android:text="DataCompra"
+            android:textSize="6pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="290dp"
+            android:text="@string/VlVenda"
+            android:textColor="#000"
+            android:textSize="6pt" />
+
+        <!--DataCompra-->
+        <TextView
+            android:id="@+id/rValoreVenda"
+            android:text="DataCompra"
+            android:textSize="6pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="264dp"
+            android:text="@string/EditDescricao"
+            android:textColor="#000"
+            android:textSize="6pt" />
+        <!--Quantidade-->
+        <TextView
+            android:id="@+id/rDesc"
+            android:text="Descrição"
+            android:textSize="6pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
+            android:textColor="#000"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

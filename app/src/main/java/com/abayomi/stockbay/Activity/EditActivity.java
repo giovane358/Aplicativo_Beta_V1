@@ -1,30 +1,26 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCanceledListener;
+import com.abayomi.stockbay.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
 
 public class EditActivity extends AppCompatActivity {
 
-    private EditText editNmProduto, editQtd, editdtCompra, editVlCusto, editVlVenda, editDesc;
+    private EditText editNmProduto, editQtd, editdtCompra, editVlCusto, editVlVenda, editDesc,editUID;
     private Button btnProd;
     private FirebaseAuth mAuth;
     FirebaseFirestore fstore;
@@ -47,16 +43,16 @@ public class EditActivity extends AppCompatActivity {
         editVlCusto = findViewById(R.id.editVlCusto);
         editVlVenda = findViewById(R.id.editVlVenda);
         editDesc = findViewById(R.id.editDesc);
+        editUID = findViewById(R.id.editUID);
         btnProd = findViewById(R.id.btnProd);
 
     }
 
     private void update() {
 
-        String UID = editNmProduto.getText().toString();
+        String UID = editUID .getText().toString();
         String id = UUID.randomUUID().toString();
         userID = mAuth.getCurrentUser().getUid();
-
         String Nome = editNmProduto.getText().toString();
         String Qtde = editQtd.getText().toString();
         String Custo = editVlCusto.getText().toString();
@@ -90,31 +86,42 @@ public class EditActivity extends AppCompatActivity {
             return;
         }
 
-        DocumentReference documentReference = fstore.collection("User").document(userID)
-                .collection("Estoque").document(UID);
-        Map<String, Object> Est = new HashMap<>();
-        Est.put("Id", id);
-        Est.put("Nome", editNmProduto.getText().toString());
-        Est.put("Search", editNmProduto.getText().toString().toLowerCase());
-        Est.put("Quantidade", editQtd.getText().toString());
-        Est.put("DataCompra", editdtCompra.getText().toString());
-        Est.put("ValoreVenda", editVlVenda.getText().toString());
-        Est.put("ValorCusto", editVlCusto.getText().toString());
-        Est.put("Descricao", editDesc.getText().toString());
-        documentReference.set(Est).addOnSuccessListener(new OnSuccessListener<Void>() {
+         fstore.collection("User").document(userID).collection("Estoque").document(UID)
+                .update(
+                        "UID", editUID.getText().toString(),
+                        "Nome", editNmProduto.getText().toString(),
+                        "Search", editNmProduto.getText().toString().toLowerCase(),
+                        "Quantidade", editQtd.getText().toString(),
+                        "ValoreVenda", editVlVenda.getText().toString(),
+                        "ValorCusto", editVlCusto.getText().toString(),
+                        "Descricao", editDesc.getText().toString()
+                ).addOnCompleteListener(new OnCompleteListener<Void>() {
+             @Override
+             public void onComplete(@NonNull Task<Void> task) {
+                 Toast.makeText(EditActivity.this, "Produto alterado com sucesso! ", Toast.LENGTH_SHORT).show();
+             }
+         }).addOnFailureListener(new OnFailureListener() {
+             @Override
+             public void onFailure(@NonNull Exception e) {
+                 Toast.makeText(EditActivity.this, "Error", Toast.LENGTH_SHORT).show();
+             }
+         });
+
+
+
+    /*addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void Void) {
-                Toast.makeText(EditActivity.this, "Produto Registrado com sucesso!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(EditActivity.this, "Produto alterado com sucesso!", Toast.LENGTH_SHORT).show();
                 Intent Sucesso = new Intent(getApplicationContext(), PrincipalActivity.class);
                 startActivity(Sucesso);
             }
-        })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Não possível registrar o Produto!", e);
-                    }
-                });
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.w(TAG, "Não possível fazer a alteração do produto!", e);
+            }
+        });*/
 
 
     }
@@ -127,5 +134,7 @@ public class EditActivity extends AppCompatActivity {
 
         }
     }
+
+
 
 }

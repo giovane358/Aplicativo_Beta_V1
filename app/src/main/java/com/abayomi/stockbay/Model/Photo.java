@@ -1,4 +1,4 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Model;
 
 public class Photo {
 

@@ -1,37 +1,35 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.PopupMenu;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.view.menu.MenuItemWrapperICS;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.abayomi.stockbay.CustomAdapter;
+import com.abayomi.stockbay.Model.Model;
+import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.Query;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -54,6 +52,8 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
     CustomAdapter adapter;
     ProgressDialog pd;
     private boolean insertMode;
+    SwipeRefreshLayout RefreshLayout;
+
 
     List<Model> modelList = new ArrayList<>();
     // layout kmanger for recycleview
@@ -64,21 +64,35 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-
         mRecycleView = findViewById(R.id.recycler_view);
 
         //set recycler view properties
         mRecycleView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(layoutManager);
+        RefreshLayout = findViewById(R.id.Swipe);
 
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
 
+        RefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                RefreshLayout.setRefreshing(false);
+            }
+        });
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null)
+        {
+
+        }
+
         //show data in recyclerview
         showData();
     }
+
 
     private void showData() {
         //set title of progress dialog
@@ -92,8 +106,7 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
 
                         //called when data is retrieved
                         //show data
-                        for(DocumentSnapshot doc: task.getResult())
-                        {
+                        for (DocumentSnapshot doc : task.getResult()) {
                             Model model = new Model(doc.getString("id"),
                                     doc.getString("Nome"),
                                     doc.getString("Quantidade"),
@@ -114,11 +127,11 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
         getMenuInflater().inflate(R.menu.menu, menu);
 
         MenuItem item = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView)MenuItemCompat.getActionView(item);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
-                    searchData(s);
+                searchData(s);
                 return false;
             }
 
@@ -139,19 +152,18 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         modelList.clear();
-                            for(DocumentSnapshot doc: task.getResult())
-                            {
-                                Model model = new Model(doc.getString("id"),
-                                        doc.getString("Nome"),
-                                        doc.getString("Quantidade"),
-                                        doc.getString("ValoreVenda"));
-                                modelList.add(model);
-                            }
-                            //adapter
-                            adapter = new CustomAdapter(modelList);
-                            //set adapterto recyclerview
-                            mRecycleView.setAdapter(adapter);
+                        for (DocumentSnapshot doc : task.getResult()) {
+                            Model model = new Model(doc.getString("id"),
+                                    doc.getString("Nome"),
+                                    doc.getString("Quantidade"),
+                                    doc.getString("ValoreVenda"));
+                            modelList.add(model);
                         }
+                        //adapter
+                        adapter = new CustomAdapter(modelList);
+                        //set adapterto recyclerview
+                        mRecycleView.setAdapter(adapter);
+                    }
 
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -163,10 +175,9 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_settings:
                 Intent config = new Intent(getApplicationContext(), ConfigActivity.class);
                 startActivity(config);
@@ -198,8 +209,7 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case 121:
                 Intent edit = new Intent(getApplicationContext(), EditActivity.class);
                 startActivity(edit);
@@ -208,14 +218,16 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
                 Intent delete = new Intent(getApplicationContext(), DeleteActivity.class);
                 startActivity(delete);
                 break;
-
+            case 123:
+                Intent details = new Intent(getApplicationContext(), DetalhesActivity.class);
+                startActivity(details);
+                break;
         }
 
         return super.onContextItemSelected(item);
     }
 
-    private void deleteItem()
-    {
+    private void deleteItem() {
 
         String id = UUID.randomUUID().toString();
         userID = mAuth.getCurrentUser().getUid();
@@ -235,7 +247,6 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
                     }
                 });
     }
-
 
 
 }

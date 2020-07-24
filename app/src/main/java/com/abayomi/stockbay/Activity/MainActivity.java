@@ -1,4 +1,4 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +13,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         fstore = FirebaseFirestore.getInstance();
 
-        btnLogin = (Button)   findViewById(R.id.btnLogin);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
         txLogin = (EditText) findViewById(R.id.editNmProduto);
         txtSenha = (EditText) findViewById(R.id.txtSenha);
         Register = findViewById(R.id.Register);
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void loginUser(String email, String password){
+    private void loginUser(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -82,12 +83,12 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
-    private boolean userConnected(){
+    private boolean userConnected() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
 
-        if (currentUser == null){
+        if (currentUser == null) {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -95,19 +96,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (userConnected()){
+        if (userConnected()) {
             openPrincipalActivity();
         }
     }
 
-    private void openPrincipalActivity(){
+    private void openPrincipalActivity() {
         Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
         startActivity(intent);
         finish();
     }
 
-    public void onClick (View v){
-        switch (v.getId()){
+    public void onClick(View v) {
+        switch (v.getId()) {
             case R.id.Register:
                 Intent intent = new Intent(getApplicationContext(), CadastroActivity.class);
                 startActivity(intent);
@@ -119,17 +120,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void lembraMe() {
-        if (LembrameMe == null){
+        if (LembrameMe == null) {
             Intent Login = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(Login);
-        }else{
+        } else {
             userConnected();
         }
 
     }
 
-    public void callReset(View view){
-        Intent intent = new Intent( this, ResetActivity.class );
+    public void callReset(View view) {
+        Intent intent = new Intent(this, ResetActivity.class);
         startActivity(intent);
     }
 }

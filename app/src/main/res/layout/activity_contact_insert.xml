@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@color/cor_de_fundo"
     android:layout_height="match_parent"
-    tools:context=".ContactInsert">
+    tools:context=".Activity.ContactInsert">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -30,7 +30,7 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="132dp"
         android:text="@string/NovoContato"
-        android:textColor="#fff"
+        android:textColor="#000"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

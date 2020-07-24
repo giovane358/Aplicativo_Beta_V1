@@ -1,4 +1,4 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.abayomi.stockbay.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -19,7 +20,7 @@ public class HeaderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      
+
         txtEmail = (TextView) findViewById(R.id.txtEmail);
 
         mAuth = FirebaseAuth.getInstance();

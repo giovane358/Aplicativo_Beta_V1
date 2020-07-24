@@ -1,6 +1,5 @@
-package com.abayomi.stockbay;
+package com.abayomi.stockbay.Activity;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.abayomi.stockbay.CustomAdapterContact;
+import com.abayomi.stockbay.Model.ModelContact;
+import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,10 +53,10 @@ public class ListContactActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //show data in recyclerview
-        showDataContact();
+        showData();
     }
 
-    private void showDataContact() {
+    private void showData() {
         //set title of progress dialog
         userID = mAuth.getCurrentUser().getUid();
         db.collection("User").document(userID)
@@ -63,7 +65,7 @@ public class ListContactActivity extends AppCompatActivity {
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        for (DocumentSnapshot cont: task.getResult()){
+                        for (DocumentSnapshot cont : task.getResult()) {
                             ModelContact modelContact = new ModelContact(cont.getString("id"),
                                     cont.getString("NomeFornc"),
                                     cont.getString("TelefoneFornec"));
@@ -81,9 +83,10 @@ public class ListContactActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menucontact, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.nav_settings:
                 Intent config = new Intent(getApplicationContext(), ConfigActivity.class);
                 startActivity(config);
@@ -92,8 +95,8 @@ public class ListContactActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onClick(View view){
-        switch (view.getId()){
+    public void onClick(View view) {
+        switch (view.getId()) {
             case R.id.nav_novo:
                 Intent insert = new Intent(getApplicationContext(), ContactInsert.class);
                 startActivity(insert);
