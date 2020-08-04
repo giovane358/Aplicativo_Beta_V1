@@ -30,6 +30,7 @@ import java.util.regex.Pattern;
 
 public class CadastroActivity extends AppCompatActivity {
 
+
     private static final Pattern PASSWORD_PATTERN =
             Pattern.compile("^" +
                     "(?=.*[0-9])" +      //at least 1 digit
@@ -42,7 +43,7 @@ public class CadastroActivity extends AppCompatActivity {
                     "$");
 
     //Item do xml
-    private EditText txtEmail, txtSenha, editEmpresa, editFoneCd;
+    private EditText txtEmail, txtSenha, editEmpresa, editFoneCd, txtConfSenha;
     private Button btnRegister;
 
     private ProgressBar progressBar;
@@ -53,6 +54,7 @@ public class CadastroActivity extends AppCompatActivity {
 
     //Strings
     private String userID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +71,7 @@ public class CadastroActivity extends AppCompatActivity {
         btnRegister = (Button) findViewById(R.id.btnRegister);
         editEmpresa = (EditText) findViewById(R.id.editEmpresa);
         editFoneCd = (EditText) findViewById(R.id.editFoneCd);
-
+        txtConfSenha = findViewById(R.id.txtConfSenha);
     }
 
     @Override
@@ -85,8 +87,25 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     private void registerUser() {
+        String user = editEmpresa.getText().toString();
+        String fone = editFoneCd.getText().toString();
         final String email = txtEmail.getText().toString();
-        String senha = txtSenha.getText().toString();
+
+         String senha = txtSenha.getText().toString();
+         String confSenha = txtConfSenha.getText().toString();
+
+
+
+        if (user.isEmpty()) {
+            editEmpresa.setError("Por favor insere um usuário");
+            editEmpresa.requestFocus();
+            return;
+        }
+        if (fone.isEmpty()) {
+            editFoneCd.setError("Por favor insere um número de telefone");
+            editFoneCd.requestFocus();
+            return;
+        }
         if (email.isEmpty()) {
             txtEmail.setError("Por favor insere o email!");
             txtEmail.requestFocus();
@@ -97,50 +116,55 @@ public class CadastroActivity extends AppCompatActivity {
             txtSenha.requestFocus();
             return;
         }
-        mAuth.createUserWithEmailAndPassword(email, senha)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            User user = new User(
-                                    email
-                            );
-                            String id = UUID.randomUUID().toString();
-                            String UID = editEmpresa.getText().toString();
-                            userID = mAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = fstore.collection("User").document(userID)
-                                    .collection("Aut").document(UID);
-                            Map<String, Object> Aut = new HashMap<>();
-                            Aut.put("id", id);
-                            Aut.put("Empresa", editEmpresa.getText().toString());
-                            Aut.put("Telefone", editFoneCd.getText().toString());
-                            Aut.put("Email", txtEmail.getText().toString());
-                            documentReference.set(Aut).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                @Override
-                                public void onSuccess(Void aVoid) {
-                                    Toast.makeText(CadastroActivity.this, "Legal", Toast.LENGTH_SHORT).show();
-
-                                }
-                            });
-                            FirebaseDatabase.getInstance().getReference("Users")
-                                    .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                                    .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    progressBar.setVisibility(View.GONE);
-                                    if (task.isSuccessful()) {
+        if (confSenha.isEmpty()) {
+            txtConfSenha.setError("Senha Inválida!");
+            txtConfSenha.requestFocus();
+            return;
+        }
+            mAuth.createUserWithEmailAndPassword(email, senha)
+                    .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                User user = new User(
+                                        email
+                                );
+                                String id = UUID.randomUUID().toString();
+                                String UID = "ID";
+                                userID = mAuth.getCurrentUser().getUid();
+                                DocumentReference documentReference = fstore.collection("User").document(userID)
+                                        .collection("Aut").document(UID);
+                                Map<String, Object> Aut = new HashMap<>();
+                                Aut.put("id", id);
+                                Aut.put("Empresa", editEmpresa.getText().toString());
+                                Aut.put("Telefone", editFoneCd.getText().toString());
+                                Aut.put("Email", txtEmail.getText().toString());
+                                documentReference.set(Aut).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(CadastroActivity.this, "Usário cadastrado com sucesso", Toast.LENGTH_SHORT).show();
 
                                     }
-                                }
-                            });
-                        } else {
-                            Toast.makeText(CadastroActivity.this, "Não foi possível fazer fazer o Registro", Toast.LENGTH_SHORT).show();
+                                });
+                                FirebaseDatabase.getInstance().getReference("Users")
+                                        .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        progressBar.setVisibility(View.GONE);
+                                        if (task.isSuccessful()) {
+
+                                        }
+                                    }
+                                });
+                            } else {
+                                Toast.makeText(CadastroActivity.this, "Não foi possível fazer fazer o Registro", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
 
 
-                });
-    }
+                    });
+        }
 
     public void onClick(View v) {
         switch (v.getId()) {

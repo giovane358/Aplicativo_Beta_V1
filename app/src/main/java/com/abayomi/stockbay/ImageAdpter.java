@@ -37,8 +37,12 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageViewHolde
 
     @Override
     public void onBindViewHolder(ImageViewHolder holder, int position) {
-
         UploadImg uploadCurrent = mUploads.get(position);
+        Picasso.get()
+                .load(uploadCurrent.getImageUrl())
+                .fit()
+                .centerCrop()
+                .into(holder.imageView);
 
 
     }
@@ -51,13 +55,13 @@ public class ImageAdpter extends RecyclerView.Adapter<ImageAdpter.ImageViewHolde
 
     public class ImageViewHolder extends RecyclerView.ViewHolder{
 
-        public ImageView IMageList;
+        public ImageView imageView;
 
         public ImageViewHolder(@NonNull View itemView) {
             super(itemView);
 
             //Ver o nome
-            IMageList = itemView.findViewById(R.id.imgList);
+            imageView = itemView.findViewById(R.id.imgList);
         }
     }
 }

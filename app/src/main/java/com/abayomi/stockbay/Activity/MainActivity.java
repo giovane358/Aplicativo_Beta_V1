@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -60,6 +62,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loginUser(String email, String password) {
+        String Email = txLogin.getText().toString();
+        String Senha = txtSenha.getText().toString();
+
+        if (Email.isEmpty()) {
+            txLogin.setError("Por favor insere o email!");
+            txLogin.requestFocus();
+            return;
+        }
+        if (Senha.isEmpty()) {
+            txtSenha.setError("Senha Inválida!");
+            txtSenha.requestFocus();
+            return;
+        }
         mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -69,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
                             Log.d("TAG", "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(), "Bem-Vindo de Volta!" + " " + user.getEmail(), Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
-                            startActivity(intent);
-
                             openPrincipalActivity();
                         } else {
                             // If sign in fails, display a message to the user.
@@ -85,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean userConnected() {
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         if (currentUser == null) {
             return false;
         } else {
@@ -102,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void openPrincipalActivity() {
-        Intent intent = new Intent(getApplicationContext(), PrincipalActivity.class);
+        Intent intent = new Intent(getApplicationContext(), LoadingActivity.class);
         startActivity(intent);
         finish();
     }

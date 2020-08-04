@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Abayomi</string>
+    <string name="app_name">Stockbay</string>
     <string name="login">Login:</string>
     <string name="senha">Senha:</string>
     <string name="title_activity_menu_lateral">MenuLateral</string>
@@ -75,7 +75,7 @@
     <string name="nav_password">Alterar senha</string>
     <string name="nav_sair">Sair do App</string>
     <string name="nav_versao">Verssão do App</string>
-    <string name="navTermos">Termo de uso do App</string>
+    <string name="navTermos">Termo de uso</string>
     <string name="avatar">Photo</string>
     <string name="Main">Bem-Vindo ao Stockbay</string>
     <string name="Excluir">Excluir item</string>
@@ -87,4 +87,24 @@
     <string name="VlCusto">Custo</string>
     <string name="VlVenda">Valor Venda</string>
     <string name="action_config">Configuração</string>
+    <string name="nav_conta">Conta</string>
+    <string name="nav_share">Compartilhar</string>
+    <string name="btnler">Escanear código de barra</string>
+    <string name="Cod">Código do produto</string>
+    <string name="btnDeleteCod">Excluir pelo código de barra</string>
+    <string name="nav_editCod">Altera produto pelo código</string>
+    <string name="modDark">Modo escuro</string>
+    <string name="alterarNm">Alterar nome</string>
+    <string name="nm">Digite o nome</string>
+    <string name="save">Salvar alterações</string>
+    <string name="alterarfone">Alterar Telefone</string>
+    <string name="fn">Digite o telefone</string>
+    <string name="nmant">Digite o nome antigo</string>
+
+    <string-array name="planets_array">
+        <item>Alfabética </item>
+        <item>Menor para maior peço</item>
+        <item>Maior para menorpeço</item>
+    </string-array>
+
 </resources>

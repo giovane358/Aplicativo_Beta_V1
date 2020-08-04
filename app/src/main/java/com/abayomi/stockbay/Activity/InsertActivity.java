@@ -1,6 +1,8 @@
 package com.abayomi.stockbay.Activity;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,11 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -24,6 +29,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -35,10 +42,11 @@ import java.util.Map;
 import java.util.UUID;
 
 @RequiresApi(api = Build.VERSION_CODES.O)
-public class InsertActivity extends AppCompatActivity {
+public class InsertActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText editNmProduto, editQtd, editdtCompra, editVlCusto, editVlVenda, editDesc;
-    private Button btnProd;
+    private EditText editNmProduto, editQtd, editdtCompra, editVlCusto, editVlVenda, editDesc, txtConfSenha;
+    private Button btnProd, btnLer;
+    private TextView viewID;
     private FirebaseAuth mAuth;
     FirebaseFirestore fstore;
     private FirebaseStorage storage;
@@ -58,22 +66,29 @@ public class InsertActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        {
+            setTheme(R.style.darktheme);
+        }else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_insert);
 
         fstore = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
-        editNmProduto = findViewById(R.id.editNmProduto);
-        editQtd = findViewById(R.id.editQtd);
-        editdtCompra = findViewById(R.id.editdtCompra);
-        editVlCusto = findViewById(R.id.editVlCusto);
-        editVlVenda = findViewById(R.id.editVlVenda);
-        editDesc = findViewById(R.id.editDesc);
-        btnProd = findViewById(R.id.btnProd);
+        editNmProduto = (EditText) findViewById(R.id.editNmProduto);
+        editQtd = (EditText) findViewById(R.id.editQtd);
+        editdtCompra = (EditText) findViewById(R.id.editdtCompra);
+        editVlCusto = (EditText) findViewById(R.id.editVlCusto);
+        editVlVenda = (EditText) findViewById(R.id.editVlVenda);
+        editDesc = (EditText) findViewById(R.id.editDesc);
+        btnProd = (Button) findViewById(R.id.btnProd);
+        btnLer = (Button) findViewById(R.id.btnLer);
+        txtConfSenha = (EditText) findViewById(R.id.txtConfSenha);
+        viewID = findViewById(R.id.viewID);
         storage = FirebaseStorage.getInstance();
         editdtCompra.addTextChangedListener(tw);
-
 
     }
 
@@ -94,6 +109,7 @@ public class InsertActivity extends AppCompatActivity {
         String Custo = editVlCusto.getText().toString();
         String venda = editVlVenda.getText().toString();
         String desc = editDesc.getText().toString();
+
         String dataFormatada = simpleDateFormat.format(data).toString();
 
         double CustoComp = Double.parseDouble(editVlCusto.getText().toString());
@@ -137,7 +153,7 @@ public class InsertActivity extends AppCompatActivity {
             progressDialog.setTitle("Registando o produto, isso pode demorar um pouco!..");
             progressDialog.show();
 
-            String UID = editNmProduto.getText().toString();
+            String UID = viewID.getText().toString();
             String id = UUID.randomUUID().toString();
             userID = mAuth.getCurrentUser().getUid();
             DocumentReference documentReference = fstore.collection("User").document(userID)
@@ -156,7 +172,7 @@ public class InsertActivity extends AppCompatActivity {
                 @Override
                 public void onSuccess(Void Void) {
                     String dataFormatada = simpleDateFormat.format(data).toString();
-                    String UID = editNmProduto.getText().toString();
+                    String UID = viewID.getText().toString();
                     String id = UUID.randomUUID().toString();
                     userID = mAuth.getCurrentUser().getUid();
                     String Hr = formatterHora.format(agora);
@@ -196,10 +212,7 @@ public class InsertActivity extends AppCompatActivity {
         } else {
             Toast.makeText(getApplicationContext(), "Verificar os Valores", Toast.LENGTH_SHORT).show();
         }
-
-
     }
-
 
     TextWatcher tw = new TextWatcher() {
 
@@ -257,6 +270,7 @@ public class InsertActivity extends AppCompatActivity {
         }
     };
 
+
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnProd:
@@ -266,6 +280,30 @@ public class InsertActivity extends AppCompatActivity {
                 Intent Voltar = new Intent(getApplicationContext(), PrincipalActivity.class);
                 startActivity(Voltar);
                 break;
+            case R.id.btnLer:
+                scanCod();
+        }
+    }
+
+    private void scanCod() {
+        IntentIntegrator intregador = new IntentIntegrator(this);
+        intregador.setCaptureActivity(CapterActivity.class);
+        intregador.setOrientationLocked(false);
+        intregador.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        intregador.setPrompt("Ler cod");
+        intregador.initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                viewID.setText(result.getContents());
+            } else {
+                Toast.makeText(this, "Não foi possível mostrar código de barra!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,12 @@ public class ListContactActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        {
+            setTheme(R.style.darktheme);
+        }else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_contact);
         mRecycleView = findViewById(R.id.recycler_view_contact);
@@ -53,7 +60,7 @@ public class ListContactActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         //show data in recyclerview
-        showData();
+          showData();
     }
 
     private void showData() {
@@ -88,7 +95,7 @@ public class ListContactActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_settings:
-                Intent config = new Intent(getApplicationContext(), ConfigActivity.class);
+                Intent config = new Intent(getApplicationContext(), ConfigurationActivity.class);
                 startActivity(config);
                 break;
         }

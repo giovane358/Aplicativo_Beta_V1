@@ -5,13 +5,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/cor_de_fundo"
+    android:background="?attr/backgroundcolor"
     tools:context=".Activity.PrincipalActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+    <!--    <Spinner
+            android:id="@+id/planets_spinner"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="360dp"
+            android:entries="@array/planets_array"
+            android:background="@drawable/ic_list_black"
+            />-->
+
+    </RelativeLayout>
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/Swipe"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view"

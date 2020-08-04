@@ -1,5 +1,13 @@
 package com.abayomi.stockbay.Activity;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -13,40 +21,47 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-
+import com.abayomi.stockbay.CustomAdapterHistoric;
+import com.abayomi.stockbay.ImageAdpter;
+import com.abayomi.stockbay.Model.ModelTotal;
+import com.abayomi.stockbay.Model.UploadImg;
 import com.abayomi.stockbay.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class ConfigActivity extends AppCompatActivity {
 
-    private CardView txtExit, txtResetSenha, txtTemo;
-    private ImageView Viewvoltar, Viewshare, img_photo;
-    private TextView txtID;
+public class ConfigurationActivity extends AppCompatActivity {
+
+    private CardView txtExit, txtResetSenha, txtTemo, btnSelectPhoto, Viewshare;
+    private ImageView img_photo;
+    private TextView txtID, txtConfSenha;
     private TextView txtEmail;
-    private Button btnSelectPhoto, btnsave;
+    private Button btnsave;
     private EditText editNamePhot;
+    private Switch switchDark;
 
     //Firebase//
     private FirebaseAuth mAuth;
@@ -64,24 +79,43 @@ public class ConfigActivity extends AppCompatActivity {
     private FirebaseFirestore db;
     private ProgressBar mProgressbar;
 
+    private ImageAdpter mAdapter;
+    private List<UploadImg> mUploads;
+
+    private RecyclerView mRecycleView;
+    CustomAdapterHistoric adapter;
+    RecyclerView.LayoutManager layoutManager;
+    List<ModelTotal> modelTotalList = new ArrayList<>();
+
+
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.darktheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_setting);
+        setContentView(R.layout.activity_configuration);
 
         //Inicialização do firebase//
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
 
-        mDatabaseref = FirebaseDatabase.getInstance().getReference("Photo");
+        txtID = findViewById(R.id.txtID);
         txtExit = findViewById(R.id.txtExit);
         txtEmail = findViewById(R.id.txtEmail);
-        txtID = findViewById(R.id.txtID);
-        Viewvoltar = findViewById(R.id.Viewvoltar);
-        Viewshare = findViewById(R.id.Viewshare);
         btnSelectPhoto = findViewById(R.id.btnSelectPhoto);
-        btnsave = findViewById(R.id.btnsave);
+        switchDark = findViewById(R.id.switchDark);
+        /*btnsave = findViewById(R.id.btnsave);*/
         img_photo = findViewById(R.id.img_photo);
+    }
+
+    private void restartApp() {
+        Intent i = new Intent(getApplicationContext(), ConfigurationActivity.class);
+        startActivity(i);
+        finish();
     }
 
     @Override
@@ -89,6 +123,7 @@ public class ConfigActivity extends AppCompatActivity {
         super.onStart();
         virificar();
     }
+
     //Pegando Info do Usuário//
     public void virificar() {
         // [START get_user_profile]
@@ -96,20 +131,18 @@ public class ConfigActivity extends AppCompatActivity {
         if (user == null) {
             finish();
         } else {
-            txtID.setText("ID: " + " " + user.getUid());
+            txtID.setText(" " + " " + user.getUid());
             txtEmail.setText("" + user.getEmail());
             Uri photoUrl = user.getPhotoUrl();
         }
     }
 
-    private void selectImg() {
-
+    private void selectImg()
+    {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Selecionar imagem"), PICK_IMAGE_REQUEST);
-        btnSelectPhoto.setAlpha(0);
-
     }
 
     private String getFileExtension(Uri uri) {
@@ -124,7 +157,6 @@ public class ConfigActivity extends AppCompatActivity {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("Salvando foto de perfil...");
             progressDialog.show();
-
             String photo = UUID.randomUUID().toString();
             userID = mAuth.getCurrentUser().getUid();
             final StorageReference ref = storageReference.child(userID).child(UUID.randomUUID().toString());
@@ -145,7 +177,7 @@ public class ConfigActivity extends AppCompatActivity {
                                         @Override
                                         public void onSuccess(Void Void) {
                                             progressDialog.dismiss();
-                                            Toast.makeText(ConfigActivity.this, "Salvo", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(ConfigurationActivity.this, "Salvo", Toast.LENGTH_LONG).show();
                                         }
                                     });
 
@@ -155,7 +187,7 @@ public class ConfigActivity extends AppCompatActivity {
                                         @Override
                                         public void onFailure(@NonNull Exception e) {
                                             progressDialog.dismiss();
-                                            Toast.makeText(ConfigActivity.this, "Falha: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(ConfigurationActivity.this, "Falha: " + e.getMessage(), Toast.LENGTH_LONG).show();
                                         }
                                     });
 
@@ -203,18 +235,19 @@ public class ConfigActivity extends AppCompatActivity {
                 startActivity(ResetSenha);
                 break;
             case R.id.txtTemo:
-                Intent temo = new Intent(this, TermActivity.class);
-                startActivity(temo);
+                Toast.makeText(this, "Em desenvolvimento!", Toast.LENGTH_SHORT).show();
+              /*  Intent temo = new Intent(this, TermActivity.class);
+                startActivity(temo);*/
                 break;
 
             case R.id.Viewvoltar:
                 Intent voltar = new Intent(this, PrincipalActivity.class);
                 startActivity(voltar);
                 break;
-            case R.id.Config:
+          /*  case R.id.Config:
                 Intent setting = new Intent(this, ConfigActivity.class);
                 startActivity(setting);
-                break;
+                break;*/
             case R.id.notification:
                 Intent notification = new Intent(this, NotificationActivity.class);
                 startActivity(notification);
@@ -222,32 +255,28 @@ public class ConfigActivity extends AppCompatActivity {
             case R.id.btnSelectPhoto:
                 selectImg();
                 break;
-            case R.id.btnsave:
-                savePhoto();
+            case R.id.btnConta:
+                Intent account = new Intent(getApplicationContext(), AccountActivity.class);
+                startActivity(account);
+                /*  Toast.makeText(this, "Em desenvolvimento!", Toast.LENGTH_SHORT).show();*/
                 break;
             case R.id.Viewshare:
-               /* share();*/
+                Toast.makeText(this, "Em desenvolvimento!", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.Viewhistoric:
+                Toast.makeText(this, "Em desenvolvimento!", Toast.LENGTH_SHORT).show();
+                /*Intent historic = new Intent(getApplicationContext(), ListHistoricActivity.class);
+                startActivity(historic);*/
                 break;
         }
-    }
-
-   /* private void dow()
-    {
-        mProgressbar.setVisibility(View.VISIBLE);
-        final StorageReference ref = storageReference.getRe         .child("photo").child(userID);
     }
 
     private void share() {
         String msg = "tst";
-        if (user != null)
-        {
+        if (user != null) {
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType(msg);
-            startActivity(share.createChooser(share,"Compartilhar o App"));
+            startActivity(share.createChooser(share, "Compartilhar o App"));
         }
-
-        }*/
-
-
-
+    }
 }

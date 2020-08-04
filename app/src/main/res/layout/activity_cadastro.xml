@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cor_de_fundo"
+    android:background="?attr/backgroundcolor"
     tools:context=".Activity.CadastroActivity">
 
 
@@ -14,7 +14,7 @@
         android:layout_height="150dp"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="55dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -29,9 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
-        android:layout_marginTop="192dp"
+        android:layout_marginTop="160dp"
         android:text="@string/title_cadastro"
-        android:textColor="#000"
+        android:textColor="?attr/textcolor"
         android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,7 +48,8 @@
         android:layout_marginRight="32dp"
         android:drawableLeft="@drawable/ic_account_circle_black_24dp"
         android:ems="10"
-        android:textColorHint="@color/fundo_menu"
+        android:textColor="?attr/textcolor"
+        android:textColorHint="?attr/textcolor"
         android:hint="@string/editEmpresa"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
@@ -67,9 +68,11 @@
         android:layout_marginRight="32dp"
         android:drawableLeft="@drawable/ic_local_phone"
         android:ems="10"
-        android:textColorHint="@color/fundo_menu"
+        android:textColor="?attr/textcolor"
+        android:textColorHint="?attr/textcolor"
         android:hint="@string/Telefone"
         android:inputType="phone"
+        android:maxLength="11"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,8 +92,8 @@
         android:ems="10"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        android:textColor="#000"
-        android:textColorHint="@color/fundo_menu"
+        android:textColor="?attr/textcolor"
+        android:textColorHint="?attr/textcolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -104,34 +107,53 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
-
         android:layout_marginEnd="32dp"
         android:drawableLeft="@drawable/ic_lock_black"
         android:ems="10"
         android:hint="Senha"
         android:inputType="textPassword"
-        android:textColorHint="@color/fundo_menu"
+        android:textColor="?attr/textcolor"
+        android:textColorHint="?attr/textcolor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtEmail" />
 
+    <EditText
+        android:id="@+id/txtConfSenha"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginRight="32dp"
+        android:ems="10"
+        android:drawableLeft="@drawable/ic_lock_black"
+        android:hint="Confirmar senha"
+        android:textColor="?attr/textcolor"
+        android:textColorHint="?attr/textcolor"
+        android:inputType="textPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSenha" />
+
     <RadioGroup
         android:id="@+id/radioGroup2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="50dp"
         android:layout_marginRight="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSenha">
+        app:layout_constraintTop_toBottomOf="@+id/txtConfSenha">
 
         <RadioButton
             android:id="@+id/LembraMe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Concordo com os Termos ..."
-            android:textColor="#000" />
+            android:textColor="?attr/textcolor" />
 
     </RadioGroup>
 
@@ -142,7 +164,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
-        android:background="@drawable/btn_cust"
+        android:background="?attr/buttoncolor"
         android:onClick="onClick"
         android:text="@string/btn_registrar"
         app:layout_constraintEnd_toEndOf="parent"

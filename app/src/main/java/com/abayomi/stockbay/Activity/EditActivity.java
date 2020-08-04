@@ -2,7 +2,9 @@ package com.abayomi.stockbay.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,9 +14,12 @@ import android.widget.Toast;
 import com.abayomi.stockbay.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import java.util.UUID;
 
@@ -32,6 +37,12 @@ public class EditActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        {
+            setTheme(R.style.darktheme);
+        }else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit);
 
@@ -131,7 +142,33 @@ public class EditActivity extends AppCompatActivity {
             case R.id.btnProd:
                 update();
                 break;
+            case R.id.btnEditCod:
+                scanCod();
+                break;
 
+        }
+    }
+
+    private void scanCod() {
+        IntentIntegrator intregador = new IntentIntegrator(this);
+        intregador.setCaptureActivity(CapterActivity.class);
+        intregador.setOrientationLocked(false);
+        intregador.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        intregador.setPrompt("Ler cod");
+        intregador.initiateScan();
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (result != null) {
+            if (result.getContents() != null) {
+                editUID.setText(result.getContents());
+
+            } else {
+                Toast.makeText(this, "Não foi possível mostrar código de barra!", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
         }
     }
 

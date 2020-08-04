@@ -2,7 +2,7 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#828E9CBF</color>
+    <color name="colorAccent">#fff  </color>
     <color name="CardView">#32CD32</color>
     <color name="colorpp">#000456</color>
     <color name="fundo_menu">#000000</color>

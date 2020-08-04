@@ -5,12 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="?attr/backgroundcolor"
-    tools:context=".Activity.DetalhesActivity">
+    tools:context=".Activity.ListHistoricActivity">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/mRecycleViewDetails"
+    <!--<androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_Historic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent" />-->
 </RelativeLayout>

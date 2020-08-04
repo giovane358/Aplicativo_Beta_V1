@@ -3,6 +3,10 @@
     package="com.abayomi.stockbay">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +15,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activity.DetalhesActivity"></activity>
+        <activity android:name=".Activity.ListHistoricActivity"></activity>
+        <activity android:name=".Activity.MainActivity" />
+        <activity android:name=".Activity.AccountActivity" />
+        <activity android:name=".Activity.ConfigurationActivity" />
+        <activity android:name=".Activity.DetalhesActivity" />
         <activity android:name=".Activity.DeleteActivity" />
         <activity android:name=".Activity.EditActivity" />
         <activity android:name=".Activity.NotificationActivity" />
@@ -23,15 +31,20 @@
         <activity android:name=".Activity.HeaderActivity" />
         <activity android:name=".Activity.InsertActivity" />
         <activity android:name=".Activity.CadastroActivity" />
-        <activity android:name=".Activity.ConfigActivity" />
-        <activity android:name=".Activity.MainActivity">
+        <activity android:name=".Activity.LoadingActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<service
+        <activity
+            android:name=".Activity.CapterActivity"
+            android:screenOrientation="fullSensor"
+            android:stateNotNeeded="true"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <!--
+<service
             android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
@@ -47,8 +60,8 @@
              notification message. See README(https://goo.gl/6BKBk7) for more. &ndash;&gt;
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/colorAccent" />-->
-
+            android:resource="@color/colorAccent" />
+        -->
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

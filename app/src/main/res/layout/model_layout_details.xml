@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardBackgroundColor="@color/cor_de_fundo"
+    app:cardBackgroundColor="?attr/backgroundcolor"
     app:contentPadding="5dp"
     app:cardCornerRadius="3dp"
     app:cardElevation="3dp"
@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="264dp"
             android:text="@string/TXTNOME"
-            android:textColor="#000"
+            android:textColor="?attr/textcolor"
             android:textSize="6pt" />
         <!--Nome-->
         <TextView
@@ -32,7 +32,7 @@
             android:layout_marginLeft="130dp"
             android:layout_marginTop="-23dp"
             android:text="Nome"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:textSize="6pt" />
 
         <TextView
@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="264dp"
             android:text="@string/TXTQTDE"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:textSize="6pt" />
         <!--Quantidade-->
         <TextView
@@ -49,7 +49,7 @@
             android:textSize="6pt"
             android:layout_marginTop="-23dp"
             android:layout_marginLeft="130dp"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -59,7 +59,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="264dp"
             android:text="@string/TXTDT"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:textSize="6pt" />
         <!--Quantidade-->
         <TextView
@@ -68,7 +68,7 @@
             android:textSize="6pt"
             android:layout_marginTop="-23dp"
             android:layout_marginLeft="130dp"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="290dp"
             android:text="@string/VlCusto"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:textSize="6pt" />
 
         <!--DataCompra-->
@@ -88,7 +88,7 @@
             android:textSize="6pt"
             android:layout_marginTop="-23dp"
             android:layout_marginLeft="130dp"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="290dp"
             android:text="@string/VlVenda"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:textSize="6pt" />
 
         <!--DataCompra-->
@@ -108,7 +108,7 @@
             android:textSize="6pt"
             android:layout_marginTop="-23dp"
             android:layout_marginLeft="130dp"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
@@ -118,7 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="264dp"
             android:text="@string/EditDescricao"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:textSize="6pt" />
         <!--Quantidade-->
         <TextView
@@ -127,7 +127,7 @@
             android:textSize="6pt"
             android:layout_marginTop="-23dp"
             android:layout_marginLeft="130dp"
-            android:textColor="#000"
+           android:textColor="?attr/textcolor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />

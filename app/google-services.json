@@ -15,6 +15,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "190539920482-movl2hfrhf05h7qb3jmc9pu9n3aujkmu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abayomi.stockbay",
+            "certificate_hash": "529ed0f4dc948dd46ea744be3021cca6e3033afe"
+          }
+        },
+        {
+          "client_id": "190539920482-53dph2409lg71mipm7n6k9u729lnjkoc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abayomi.stockbay",
+            "certificate_hash": "91920eeaa321cedf2d70a41943dbb20e14637f13"
+          }
+        },
+        {
           "client_id": "190539920482-n34evaumu9v01k1hf5s6b07pajbb11qd.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

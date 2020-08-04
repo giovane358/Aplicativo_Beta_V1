@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.MenuItemCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,6 +31,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -39,42 +41,39 @@ import java.util.UUID;
 
 public class PrincipalActivity extends AppCompatActivity implements AdapterView.OnItemLongClickListener, PopupMenu.OnMenuItemClickListener {
 
-    // Firebase
     private FirebaseAuth mAuth;
     private RecyclerView mRecycleView;
     private FirebaseFirestore db;
-
     private CardView cardView;
-
     private static final String TAG = "DocSnippets";
     private int selectedItem;
+    private boolean insertMode;
+    private String selectedItemName;
     String userID;
     CustomAdapter adapter;
     ProgressDialog pd;
-    private boolean insertMode;
     SwipeRefreshLayout RefreshLayout;
-
-
     List<Model> modelList = new ArrayList<>();
-    // layout kmanger for recycleview
     RecyclerView.LayoutManager layoutManager;
-    private String selectedItemName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.darktheme);
+        } else {
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_principal);
-        mRecycleView = findViewById(R.id.recycler_view);
 
-        //set recycler view properties
+        mRecycleView = findViewById(R.id.recycler_view);
         mRecycleView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(layoutManager);
         RefreshLayout = findViewById(R.id.Swipe);
-
         db = FirebaseFirestore.getInstance();
         mAuth = FirebaseAuth.getInstance();
-
 
         RefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -82,28 +81,22 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
                 RefreshLayout.setRefreshing(false);
             }
         });
-
         Bundle bundle = getIntent().getExtras();
-        if (bundle != null)
-        {
+        if (bundle != null) {
 
         }
-
-        //show data in recyclerview
         showData();
     }
 
-
     private void showData() {
-        //set title of progress dialog
         userID = mAuth.getCurrentUser().getUid();
         db.collection("User").document(userID)
                 .collection("Estoque")
+                .orderBy("DataInsert", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-
                         //called when data is retrieved
                         //show data
                         for (DocumentSnapshot doc : task.getResult()) {
@@ -125,7 +118,6 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-
         MenuItem item = menu.findItem(R.id.search);
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(item);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -179,7 +171,7 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
 
         switch (item.getItemId()) {
             case R.id.nav_settings:
-                Intent config = new Intent(getApplicationContext(), ConfigActivity.class);
+                Intent config = new Intent(getApplicationContext(), ConfigurationActivity.class);
                 startActivity(config);
                 break;
 
@@ -226,29 +218,6 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
 
         return super.onContextItemSelected(item);
     }
-
-    private void deleteItem() {
-
-        String id = UUID.randomUUID().toString();
-        userID = mAuth.getCurrentUser().getUid();
-        db.collection("User").document(userID)
-                .collection("Estoque").document()
-                .delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Log.d(TAG, "Produto deletado com sucesso!");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(PrincipalActivity.this, "Não foi possível Deletar esse produto", Toast.LENGTH_SHORT).show();
-                    }
-                });
-    }
-
-
 }
 
 

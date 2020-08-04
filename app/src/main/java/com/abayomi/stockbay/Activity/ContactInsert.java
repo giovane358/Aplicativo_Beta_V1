@@ -3,6 +3,7 @@ package com.abayomi.stockbay.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Build;
@@ -37,6 +38,12 @@ public class ContactInsert extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
+        {
+            setTheme(R.style.darktheme);
+        }else{
+            setTheme(R.style.AppTheme);
+        }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_insert);
 
@@ -56,7 +63,7 @@ public class ContactInsert extends AppCompatActivity {
 
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = fstore.collection("User").document(userID)
-                .collection("Contato").document();
+                .collection("Contatos").document();
         Map<String, Object> Contact = new HashMap<>();
         Contact.put("NomeFornc", editNm.getText().toString());
         Contact.put("EmailFornc", editEmail.getText().toString());
