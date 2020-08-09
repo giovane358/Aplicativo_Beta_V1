@@ -1,25 +1,25 @@
 package com.abayomi.stockbay.Activity;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
+        import androidx.annotation.NonNull;
+        import androidx.appcompat.app.AppCompatActivity;
+        import androidx.appcompat.app.AppCompatDelegate;
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.Switch;
-import android.widget.Toast;
+        import android.content.Intent;
+        import android.os.Bundle;
+        import android.view.View;
+        import android.widget.CompoundButton;
+        import android.widget.EditText;
+        import android.widget.Switch;
+        import android.widget.Toast;
 
-import com.abayomi.stockbay.R;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.firestore.FirebaseFirestore;
+        import com.abayomi.stockbay.R;
+        import com.google.android.gms.tasks.OnCompleteListener;
+        import com.google.android.gms.tasks.OnFailureListener;
+        import com.google.android.gms.tasks.Task;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.UUID;
+        import java.util.UUID;
 
 public class AccountActivity<userID> extends AppCompatActivity {
 
@@ -30,10 +30,9 @@ public class AccountActivity<userID> extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-        {
-        setTheme(R.style.darktheme);
-        }else{
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+            setTheme(R.style.darktheme);
+        } else {
             setTheme(R.style.AppTheme);
         }
         super.onCreate(savedInstanceState);
@@ -46,19 +45,16 @@ public class AccountActivity<userID> extends AppCompatActivity {
         editNomeNew = (EditText) findViewById(R.id.editNomeNew);
         editPhoneNew = (EditText) findViewById(R.id.editPhoneNew);
 
-        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES)
-        {
+        if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
             switchDark.setChecked(true);
         }
         switchDark.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked)
-                {
+                if (isChecked) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                     restartApp();
-                }
-                else{
+                } else {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                     restartApp();
                 }
@@ -66,15 +62,14 @@ public class AccountActivity<userID> extends AppCompatActivity {
         });
     }
 
-    public void upData(){
+    public void upData() {
         String UID = editNomeAnt.getText().toString();
         String id = UUID.randomUUID().toString();
         String userID = mAuth.getCurrentUser().getUid();
 
         String nm = editNomeAnt.getText().toString();
 
-        if (nm.isEmpty())
-        {
+        if (nm.isEmpty()) {
             editNomeAnt.setError("Digite o nome antigo");
             editNomeAnt.requestFocus();
         }
@@ -97,13 +92,12 @@ public class AccountActivity<userID> extends AppCompatActivity {
     }
 
     private void restartApp() {
-        Intent i = new Intent(getApplicationContext(),PrincipalActivity.class);
+        Intent i = new Intent(getApplicationContext(), LoadingActivity.class);
         startActivity(i);
         finish();
     }
 
-    public void onClick(View view)
-    {
+    public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnsave:
                 upData();

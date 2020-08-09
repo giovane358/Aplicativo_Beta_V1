@@ -63,11 +63,11 @@ public class ContactInsert extends AppCompatActivity {
 
         userID = mAuth.getCurrentUser().getUid();
         DocumentReference documentReference = fstore.collection("User").document(userID)
-                .collection("Contatos").document();
+                .collection("Contato").document();
         Map<String, Object> Contact = new HashMap<>();
         Contact.put("NomeFornc", editNm.getText().toString());
         Contact.put("EmailFornc", editEmail.getText().toString());
-        Contact.put("TelefoneFornec", editFone.getText().toString());
+        Contact.put("TelefoneFornc", editFone.getText().toString());
 
         documentReference.set(Contact).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

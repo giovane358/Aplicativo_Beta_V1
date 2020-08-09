@@ -1,36 +1,125 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="?attr/backgroundcolor"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardBackgroundColor="?attr/cardBackgroundColor"
+    app:contentPadding="5dp"
+    app:cardCornerRadius="3dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true"
+    android:id="@+id/cardView">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardHistoric"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="10dp"
-        >
+        android:orientation="vertical">
+
+        <!--NOME Nome-->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="264dp"
+            android:text="@string/TXTNOME"
+            android:textColor="?attr/textcolor"
+            android:textSize="8pt" />
+        <!--Nome-->
+        <TextView
+            android:id="@+id/rTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="130dp"
+            android:layout_marginTop="-23dp"
+            android:text="Nome"
+            android:textColor="?attr/textcolor"
+            android:textSize="8pt" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:layout_marginRight="264dp"
+            android:text="@string/TXTQTDE"
+            android:textColor="?attr/textcolor"
+            android:textSize="8pt" />
+        <!--Quantidade-->
+        <TextView
+            android:id="@+id/rQtd"
+            android:text="Quantidade"
+            android:textSize="8pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
+            android:textColor="?attr/textcolor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="290dp"
+            android:text="@string/TXTVALUE"
+            android:textColor="?attr/textcolor"
+            android:textSize="8pt" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="240dp"
             android:text="R$"
-            android:textColor="?attr/textcolor"/>
+            android:textColor="?attr/textcolor"
+            android:textSize="8pt" />
+
+        <!--DataCompra-->
+        <TextView
+            android:id="@+id/rValorVenda"
+            android:text="DataCompra"
+            android:textSize="8pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
+            android:textColor="?attr/textcolor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="290dp"
+            android:text="@string/TXTVALUE"
+            android:textColor="?attr/textcolor"
+            android:textSize="8pt" />
 
         <TextView
-            android:id="@+id/rTotal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="18dp"
-            android:layout_marginTop="-3dp"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="240dp"
+            android:text="R$"
+            android:textColor="?attr/textcolor"
+            android:textSize="8pt" />
+
+        <!--DataCompra-->
+        <TextView
+            android:id="@+id/rValorTotal"
+            android:text="DataCompra"
+            android:textSize="8pt"
+            android:layout_marginTop="-23dp"
+            android:layout_marginLeft="130dp"
+            android:textColor="?attr/textcolor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             />
 
 
+        <!--ValoreVenda-->
 
-    </androidx.cardview.widget.CardView>
-</RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

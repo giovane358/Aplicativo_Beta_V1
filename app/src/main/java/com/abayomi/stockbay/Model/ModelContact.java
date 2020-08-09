@@ -5,12 +5,8 @@ ModelContact {
 
     String Id, Nome, Fone;
 
-    public ModelContact() {
-
-    }
-
     public ModelContact(String id, String nome, String fone) {
-        this.Id = id;
+        Id = id;
         Nome = nome;
         Fone = fone;
     }
@@ -38,5 +34,4 @@ ModelContact {
     public void setFone(String fone) {
         Fone = fone;
     }
-
 }

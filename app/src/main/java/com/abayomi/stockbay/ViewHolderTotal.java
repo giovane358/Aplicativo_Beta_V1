@@ -6,12 +6,12 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class ViewHolderHistoric extends RecyclerView.ViewHolder {
+public class ViewHolderTotal extends RecyclerView.ViewHolder {
 
-    TextView rTitle, rQtd, rValorVenda, rValorTotal;
+    TextView rTotal;
     View mViewHistoric;
 
-    public ViewHolderHistoric(@NonNull View itemView) {
+    public ViewHolderTotal(@NonNull View itemView) {
         super(itemView);
 
         mViewHistoric = itemView;
@@ -32,14 +32,10 @@ public class ViewHolderHistoric extends RecyclerView.ViewHolder {
             }
         });
 
-        rTitle = itemView.findViewById(R.id.rTitle);
-        rQtd = itemView.findViewById(R.id.rQtd);
-        rValorTotal = itemView.findViewById(R.id.rValorTotal);
-        rValorVenda = itemView.findViewById(R.id.rValorVenda);
+        rTotal = (TextView) itemView.findViewById(R.id.rTotal);
     }
 
-
-    private ViewHolderHistoric.ClickListener mClickListener;
+    private ViewHolderTotal.ClickListener mClickListener;
 
     //interface for click listener
     public interface ClickListener {
@@ -48,8 +44,7 @@ public class ViewHolderHistoric extends RecyclerView.ViewHolder {
         void onLongClick(View view, int position);
     }
 
-    public void setOnClickListener(ViewHolderHistoric.ClickListener clickListener) {
+    public void setOnClickListener(ViewHolderTotal.ClickListener clickListener) {
         mClickListener = clickListener;
     }
-
 }

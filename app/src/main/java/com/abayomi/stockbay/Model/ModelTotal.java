@@ -1,9 +1,11 @@
 package com.abayomi.stockbay.Model;
 
 public class ModelTotal {
-    String id, Total;
 
-    public ModelTotal(String id, String total) {
+    String id;
+    Double Total;
+
+    public ModelTotal(String id, Double total) {
         this.id = id;
         Total = total;
     }
@@ -16,11 +18,11 @@ public class ModelTotal {
         this.id = id;
     }
 
-    public String getTotal() {
+    public Double getTotal() {
         return Total;
     }
 
-    public void setTotal(String total) {
+    public void setTotal(Double total) {
         Total = total;
     }
 }

@@ -159,12 +159,12 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
             DocumentReference documentReference = fstore.collection("User").document(userID)
                     .collection("Estoque").document(UID);
             Map<String, Object> Est = new HashMap<>();
-            Est.put("Id", id);
+            Est.put("Id", UID);
             Est.put("Nome", editNmProduto.getText().toString());
             Est.put("Search", editNmProduto.getText().toString().toLowerCase());
             Est.put("Quantidade", editQtd.getText().toString());
             Est.put("DataCompra", editdtCompra.getText().toString());
-            Est.put("ValoreVenda", editVlVenda.getText().toString());
+            Est.put("ValorVenda", editVlVenda.getText().toString());
             Est.put("ValorCusto", editVlCusto.getText().toString());
             Est.put("Descricao", editDesc.getText().toString());
             Est.put("DataInsert", dataFormatada);
@@ -179,7 +179,7 @@ public class InsertActivity extends AppCompatActivity implements View.OnClickLis
                     DocumentReference documentReference = fstore.collection("User").document(userID)
                             .collection("Notification").document(UID);
                     Map<String, Object> not = new HashMap<>();
-                    not.put("Id", id);
+                    not.put("Id", UID);
                     not.put("Nome", editNmProduto.getText().toString());
                     not.put("Search", editNmProduto.getText().toString().toLowerCase());
                     not.put("Quantidade", editQtd.getText().toString());

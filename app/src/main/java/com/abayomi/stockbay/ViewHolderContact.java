@@ -11,7 +11,6 @@ public class ViewHolderContact extends RecyclerView.ViewHolder {
 
     TextView editNome, editFone;
     View mView;
-    CardView cardView;
 
     public ViewHolderContact(@NonNull View itemView) {
         super(itemView);
@@ -35,8 +34,6 @@ public class ViewHolderContact extends RecyclerView.ViewHolder {
         //initialize views with model_layout.xml
         editNome = itemView.findViewById(R.id.editNome);
         editFone = itemView.findViewById(R.id.editFone);
-        cardView = itemView.findViewById(R.id.cardView);
-
     }
 
     private ViewHolderContact.ClickListener mClickListener;

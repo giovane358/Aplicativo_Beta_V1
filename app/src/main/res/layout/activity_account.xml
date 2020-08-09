@@ -33,6 +33,7 @@
             android:layout_marginTop="18dp"
             android:hint="@string/nmant"
             android:textColor="?attr/textcolor"
+            android:textColorHint="?attr/textcolor"
             android:drawableLeft="@drawable/ic_account"/>
 
         <EditText
@@ -44,6 +45,7 @@
             android:layout_marginTop="65dp"
             android:hint="@string/nm"
             android:textColor="?attr/textcolor"
+            android:textColorHint="?attr/textcolor"
             android:drawableLeft="@drawable/ic_account"/>
 
     </androidx.cardview.widget.CardView>
@@ -74,6 +76,7 @@
             android:layout_marginTop="18dp"
             android:hint="@string/fn"
             android:textColor="?attr/textcolor"
+            android:textColorHint="?attr/textcolor"
             android:drawableLeft="@drawable/ic_account"/>
 
     </androidx.cardview.widget.CardView>
@@ -83,11 +86,11 @@
         android:id="@+id/switchDark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="195dp"
-        android:textColor="?attr/textcolor"
         android:layout_marginLeft="15dp"
+        android:layout_marginTop="195dp"
         android:layout_marginRight="15dp"
-        android:text="@string/modDark" />
+        android:text="@string/modDark"
+        android:textColor="?attr/textcolor" />
 
     <Button
         android:id="@+id/btnsave"

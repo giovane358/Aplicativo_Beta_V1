@@ -92,7 +92,6 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
         userID = mAuth.getCurrentUser().getUid();
         db.collection("User").document(userID)
                 .collection("Estoque")
-                .orderBy("DataInsert", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
@@ -219,8 +218,3 @@ public class PrincipalActivity extends AppCompatActivity implements AdapterView.
         return super.onContextItemSelected(item);
     }
 }
-
-
-
-
-

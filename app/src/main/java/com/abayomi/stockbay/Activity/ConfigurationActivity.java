@@ -25,22 +25,18 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.abayomi.stockbay.CustomAdapterHistoric;
+import com.abayomi.stockbay.CustomAdapterTotal;
 import com.abayomi.stockbay.ImageAdpter;
 import com.abayomi.stockbay.Model.ModelTotal;
 import com.abayomi.stockbay.Model.UploadImg;
 import com.abayomi.stockbay.R;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -83,7 +79,7 @@ public class ConfigurationActivity extends AppCompatActivity {
     private List<UploadImg> mUploads;
 
     private RecyclerView mRecycleView;
-    CustomAdapterHistoric adapter;
+    CustomAdapterTotal adapter;
     RecyclerView.LayoutManager layoutManager;
     List<ModelTotal> modelTotalList = new ArrayList<>();
 
@@ -264,9 +260,9 @@ public class ConfigurationActivity extends AppCompatActivity {
                 Toast.makeText(this, "Em desenvolvimento!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.Viewhistoric:
-                Toast.makeText(this, "Em desenvolvimento!", Toast.LENGTH_SHORT).show();
-                /*Intent historic = new Intent(getApplicationContext(), ListHistoricActivity.class);
-                startActivity(historic);*/
+             /*   Toast.makeText(this, "Em desenvolvimento!", Toast.LENGTH_SHORT).show();*/
+                Intent historic = new Intent(getApplicationContext(), ListHistoricActivity.class);
+                startActivity(historic);
                 break;
         }
     }

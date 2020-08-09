@@ -7,16 +7,17 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.abayomi.stockbay.Model.ModelTotal;
+import com.abayomi.stockbay.Model.ModelHistoric;
+import com.abayomi.stockbay.Model.ModelNotification;
 
 import java.util.List;
 
 public class CustomAdapterHistoric extends RecyclerView.Adapter<ViewHolderHistoric> {
 
-    List<ModelTotal> modelTotalList;
+    List<ModelHistoric> modelHistoricList;
 
-    public CustomAdapterHistoric(List<ModelTotal> modelTotalList) {
-        this.modelTotalList = modelTotalList;
+    public CustomAdapterHistoric(List<ModelHistoric> modelHistoricList) {
+        this.modelHistoricList = modelHistoricList;
     }
 
     @NonNull
@@ -29,7 +30,11 @@ public class CustomAdapterHistoric extends RecyclerView.Adapter<ViewHolderHistor
         viewHolderHistoric.setOnClickListener(new ViewHolderHistoric.ClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                String Total = modelTotalList.get(position).getTotal();
+
+                String nome = modelHistoricList.get(position).getNome();
+                String Quantidade = modelHistoricList.get(position).getQuantidade();
+                String ValorVenda = modelHistoricList.get(position).getValorVenda();
+                String ValorTotal = modelHistoricList.get(position).getValorTotal();
             }
 
             @Override
@@ -37,20 +42,21 @@ public class CustomAdapterHistoric extends RecyclerView.Adapter<ViewHolderHistor
 
             }
 
-
         });
         return viewHolderHistoric;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolderHistoric viewHolderHistoric, int i) {
-        viewHolderHistoric.rTotal.setText(modelTotalList.get(i).getTotal());
+        viewHolderHistoric.rTitle.setText(modelHistoricList.get(i).getNome());
+        viewHolderHistoric.rQtd.setText(modelHistoricList.get(i).getQuantidade());
+        viewHolderHistoric.rValorVenda.setText(modelHistoricList.get(i).getValorVenda());
+        viewHolderHistoric.rValorTotal.setText(modelHistoricList.get(i).getValorTotal());
     }
 
     @Override
     public int getItemCount() {
-        return modelTotalList.size();
+        return modelHistoricList.size();
     }
 }
-
 

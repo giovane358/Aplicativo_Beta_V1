@@ -7,8 +7,18 @@
     android:orientation="vertical"
     tools:context=".Activity.ListHistoricActivity">
 
-    <!--<androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_Historic"
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_Total"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />-->
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_Historic"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="32dp"/>
+
 </RelativeLayout>
